@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
-  fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
+  # fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
 in
 {
   home = {
     packages = [
-      fiberplane-cli
+      # fiberplane-cli
     ] ++ (with pkgs; [
 
       # Unix tools
