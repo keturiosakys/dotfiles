@@ -24,32 +24,32 @@
     in
     {
 
-      # darwinConfigurations = {
-      #   Frodo-Baggins = darwin.lib.darwinSystem {
-      #     system = macOS;
-      #     pkgs = getPkgsForSystem macOS;
-      #     modules = [
-      #       Frodo-Baggins
-      #       home-manager.darwinModules.home-manager
-      #       {
-      #         home-manager.useGlobalPkgs = true;
-      #         home-manager.useUserPackages = true;
-      #         home-manager.users."${usernameWork}" = { ... }: {
-      #           imports = [ home-common home-work ];
-      #         };
-      #       }
-      #     ];
-      #   };
-      # };
-
-      homeConfigurations = {
-        "${usernameWork}" = home-manager.lib.homeManagerConfiguration {
+      darwinConfigurations = {
+        Frodo-Baggins = darwin.lib.darwinSystem {
+          system = macOS;
           pkgs = getPkgsForSystem macOS;
           modules = [
-            home-common
-            home-work
+            Frodo-Baggins
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users."${usernameWork}" = { ... }: {
+                imports = [ home-common home-work ];
+              };
+            }
           ];
         };
       };
+
+      # homeConfigurations = {
+      #   "${usernameWork}" = home-manager.lib.homeManagerConfiguration {
+      #     pkgs = getPkgsForSystem macOS;
+      #     modules = [
+      #       home-common
+      #       home-work
+      #     ];
+      #   };
+      # };
     };
 }
