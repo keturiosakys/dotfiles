@@ -81,7 +81,6 @@ in
       iftop
       lazygit
       lazydocker
-      espanso
       visidata
 
       railway

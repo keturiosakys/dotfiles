@@ -2,10 +2,9 @@
   home.file = {
     # TODO: add check if darwin
     hammerspoon = {
-      source = /Users/laurynas-fp/Code/keturiosakys/dotfiles/modules/hammerspoon;
+      source = ./hsp;
       recursive = true;
-      target = "/Users/laurynas-fp/.hammerspoon";
-      onChange = "open -g hammerspoon://reload_configuration";
+      target = ".hammerspoon";
     };
   };
 }

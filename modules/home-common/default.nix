@@ -1,8 +1,8 @@
 { pkgs, ... }: {
 
   imports = [
-    # ../espanso
     ../bat
+    ../espanso
     ../fzf
     ../git
     ../hammerspoon

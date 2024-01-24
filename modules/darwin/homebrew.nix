@@ -20,6 +20,7 @@
       "cleanshot"
       "discord"
       "dozer"
+      "espanso"
       "font-hack"
       "font-inter"
       "google-chrome"
@@ -27,15 +28,17 @@
       "hammerspoon"
       "iina"
       "karabiner-elements"
+      "keyboardcleantool"
       "mixxx"
+      "middle"
       "obsidian"
       "orbstack"
       "skim"
       "slack"
       "sloth"
-      "sublime-text"
       "visual-studio-code"
       "wezterm-nightly"
+      "zed"
     ];
   };
 }

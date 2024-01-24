@@ -159,6 +159,11 @@ lsp.gopls.setup({
     },
 })
 
+lsp.bashls.setup({})
+
+lsp.dockerls.setup({})
+lsp.docker_compose_language_service.setup({})
+
 lsp.helm_ls.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,

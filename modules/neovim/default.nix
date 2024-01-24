@@ -59,8 +59,11 @@
 
       extraPackages = with pkgs; [
         nodePackages_latest."@astrojs/language-server"
+        nodePackages_latest.bash-language-server
         emmet-language-server
         helm-ls
+        dockerfile-language-server-nodejs
+        docker-compose-language-service
 
         lua-language-server
         nil
