@@ -58,6 +58,7 @@
       vimdiffAlias = true;
 
       extraPackages = with pkgs; [
+        nodePackages_latest."@astrojs/language-server"
         emmet-language-server
         helm-ls
 

@@ -13,7 +13,7 @@ M.logger = hs.logger.new("GithubNotifications")
 local icon_path = hs.spoons.resourcePath("images/github-mark.png")
 local icon = hs.image.imageFromPath(icon_path):setSize({ w = 16, h = 16 })
 
-local gh = os.getenv("HOME") .. "/.nix-profile/bin/gh"
+local gh = "/etc/profiles/per-user/laurynas-fp/bin/gh"
 
 local function update_menubar()
 	local args = { "api", "/notifications" }

@@ -1,7 +1,8 @@
-{ ... }: {
+{ pkgs, ... }: {
 
   imports = [
     ../bat
+    # ../espanso
     ../fzf
     ../git
     ../neovim

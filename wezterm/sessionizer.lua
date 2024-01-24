@@ -4,7 +4,7 @@ local json = require("utils.json")
 
 local M = {}
 
-local fd = "/Users/laurynas-fp/.nix-profile/bin/fd"
+local fd = "/etc/profiles/per-user/laurynas-fp/bin/fd"
 local rootPath = "/Users/laurynas-fp/Code"
 
 M.resetCacheAndToggle = function(window, pane)

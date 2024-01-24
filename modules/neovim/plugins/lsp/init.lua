@@ -36,23 +36,15 @@ navic.setup({
 })
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-updated_capabilities.textDocument.completion.completionItem.snippetSupport =
-    true
+updated_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-vim.tbl_deep_extend(
-    "force",
-    updated_capabilities,
-    require("cmp_nvim_lsp").default_capabilities()
-)
-updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport =
-    false
+vim.tbl_deep_extend("force", updated_capabilities, require("cmp_nvim_lsp").default_capabilities())
+updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
 updated_capabilities.textDocument.codeLens = { dynamicRegistration = false }
 
 local on_attach = function(client, bufnr)
-    if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
+    if client.server_capabilities.documentSymbolProvider then navic.attach(client, bufnr) end
 end
 
 lsp.denols.setup({
@@ -72,17 +64,19 @@ lsp.tsserver.setup({
     root_dir = lsp.util.root_pattern({ "package.json" }),
 })
 
+lsp.astro.setup({})
+
 lsp.html.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
     filetypes = { "html", "templ" },
 })
 
-lsp.htmx.setup({
+--[[ lsp.htmx.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
     filetypes = { "html", "astro", "templ" },
-})
+}) ]]
 
 lsp.cssls.setup({
     on_attach = on_attach,
@@ -227,14 +221,9 @@ lsp.lua_ls.setup({
 
 lsp.ocamllsp.setup({
     on_attach = function(_, _)
-        vim.api.nvim_create_autocmd(
-            { "BufEnter", "BufWritePost", "CursorHold" },
-            {
-                callback = function()
-                    require("lsp.codelens").refresh_virtlines()
-                end,
-            }
-        )
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold" }, {
+            callback = function() require("lsp.codelens").refresh_virtlines() end,
+        })
 
         vim.keymap.set(
             "n",
@@ -269,18 +258,8 @@ local rust_tools = require("rust-tools")
 rust_tools.setup({
     server = {
         on_attach = function(_, bufnr)
-            vim.keymap.set(
-                "n",
-                "K",
-                rust_tools.hover_actions.hover_actions,
-                { buffer = bufnr }
-            )
-            vim.keymap.set(
-                "n",
-                "<leader>ca",
-                rust_tools.hover_actions.hover_actions,
-                { buffer = bufnr }
-            )
+            vim.keymap.set("n", "K", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+            vim.keymap.set("n", "<leader>ca", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
         end,
     },
     tools = {
@@ -429,10 +408,7 @@ cmp.setup({
                 select = true,
             }),
         }),
-        ["<C-y>"] = cmp.mapping.confirm(
-            { behavior = cmp.SelectBehavior.Replace, select = false },
-            { "i", "s", "c" }
-        ),
+        ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = false }, { "i", "s", "c" }),
         ["<C-j>"] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)

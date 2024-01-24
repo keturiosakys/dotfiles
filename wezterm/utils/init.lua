@@ -4,24 +4,8 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local fmt = wezterm.format
 
-local function is_inside_vim_or_vd(pane)
-	local tty = pane:get_tty_name()
-	if tty == nil then
-		return false
-	end
-
-	local vd_success = pane:get_foreground_process_name():find("visidata") ~= nil
-
-	local nvim_success, nvim_stdout, nvim_stderr = wezterm.run_child_process({
-		"sh",
-		"-c",
-		"ps -o state= -o comm= -t"
-			.. wezterm.shell_quote_arg(tty)
-			.. " | "
-			.. "grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'",
-	})
-
-	return nvim_success or vd_success
+local function is_vim(pane)
+	return pane:get_user_vars().IS_NVIM == "true"
 end
 
 M.bind_if = function(cond, key, mods, action)
@@ -37,7 +21,7 @@ M.bind_if = function(cond, key, mods, action)
 end
 
 M.is_outside_vim = function(pane)
-	return not is_inside_vim_or_vd(pane)
+	return not is_vim(pane)
 end
 
 M.toggle_padding = function(window)

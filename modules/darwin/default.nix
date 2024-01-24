@@ -1,5 +1,12 @@
 { username }: { pkgs, ... }:
 {
+  imports = [
+    ./homebrew.nix
+    ./skhd.nix
+    ./yabai
+  ];
+
+  programs.zsh.enable = true;
 
   nix = {
     settings = {
@@ -18,34 +25,20 @@
 
   services.nix-daemon.enable = true;
 
-  programs = {
-    zsh.enable = true;
-    fish.enable = true;
-    bash.enable = true;
-    nix-index.enable = true;
-  };
-
   system = {
     stateVersion = 4;
     activationScripts.postUserActivation.text = ''
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
+
+    keyboard = {
+      enableKeyMapping = true;
+    };
   };
 
-  # networking = {
-  #   hostName = hostname;
-  #   computerName = hostname;
-  #   knownNetworkService = [
-  #     "Wi-Fi"
-  #     "USB 10/100/1000 LAN"
-  #     "Thunderbolt Bridge"
-  #   ];
-  # };
-
   users.users."${username}" = {
-    name = username;
     home = "/Users/${username}";
     description = username;
-    shell = pkgs.zsh;
+    packages = with pkgs; [ skhd ];
   };
 }

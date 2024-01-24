@@ -12,15 +12,12 @@
       macOS = "aarch64-darwin";
       usernameWork = "laurynas-fp";
 
+      Frodo-Baggins = import ./modules/darwin { username = usernameWork; };
+
       getPkgsForSystem = system: import nixpkgs {
         inherit system;
         config = { allowUnfree = true; allowUnfreePredicate = _: true; };
       };
-
-      Frodo-Baggins = import ./hosts/Frodo-Baggins { username = usernameWork; };
-      home-common = import ./modules/home-common;
-      home-work = import ./modules/home-work { username = usernameWork; };
-
     in
     {
 
@@ -32,10 +29,10 @@
             Frodo-Baggins
             home-manager.darwinModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users."${usernameWork}" = { ... }: {
-                imports = [ home-common home-work ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users."${usernameWork}".imports = [ ./modules/home-common ];
               };
             }
           ];
@@ -47,7 +44,12 @@
       #     pkgs = getPkgsForSystem macOS;
       #     modules = [
       #       home-common
-      #       home-work
+      #       {
+      #         home = {
+      #           username = usernameWork;
+      #           homeDirectory = "/Users/${usernameWork}";
+      #         };
+      #       }
       #     ];
       #   };
       # };

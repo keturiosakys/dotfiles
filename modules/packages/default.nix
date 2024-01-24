@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
-  # fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
+  fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
 in
 {
   home = {
     packages = [
-      # fiberplane-cli
+      fiberplane-cli
     ] ++ (with pkgs; [
 
       # Unix tools
@@ -21,6 +21,7 @@ in
       nurl
       git
       jq
+      xq-xml
       jless
       bat
       eza
@@ -57,13 +58,12 @@ in
 
       # rust
       cargo
-      perl 
+      perl
       rustc
 
       # Container and cloud tools
       act
       awscli2
-      colima
       docker
       docker-compose
       podman
