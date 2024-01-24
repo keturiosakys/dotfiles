@@ -34,6 +34,13 @@
     keyboard = {
       enableKeyMapping = true;
     };
+
+    defaults = {
+      NSGlobalDomain = {
+        KeyRepeat = 1;
+        InitialKeyRepeat = 13;
+      };
+    };
   };
 
   users.users."${username}" = {

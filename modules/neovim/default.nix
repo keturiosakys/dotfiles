@@ -164,7 +164,8 @@
           config = toLua "require(\"nvim-surround\").setup{}";
         }
         telescope-undo-nvim
-        telescope-fzf-native-nvim
+        # telescope-fzf-native-nvim
+        telescope-zf-native-nvim
         {
           plugin = telescope-nvim;
           config = toLuaFile ./plugins/telescope.lua;

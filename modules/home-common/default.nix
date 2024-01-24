@@ -1,10 +1,12 @@
 { pkgs, ... }: {
 
   imports = [
-    ../bat
     # ../espanso
+    ../bat
     ../fzf
     ../git
+    ../hammerspoon
+    ../karabiner
     ../neovim
     ../packages
     ../zsh
