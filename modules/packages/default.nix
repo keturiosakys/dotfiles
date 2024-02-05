@@ -1,93 +1,104 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 let
   fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
+  choose = pkgs.callPackage ./choose-gui { };
+  dotfiles = pkgs.writeShellScriptBin "dotfiles" (builtins.readFile ./scripts/dotfiles.sh);
 in
 {
   home = {
     packages = [
       fiberplane-cli
+      choose
+      dotfiles
+
     ] ++ (with pkgs; [
 
       # Unix tools
       bashInteractive
+      bat
+      bat
       coreutils
-      inetutils
-      gnused
-      gawkInteractive
-      gnugrep
-      nixpkgs-fmt
       curl
       curlie
-      nurl
-      git
-      jq
-      xq-xml
-      jless
-      bat
-      eza
-      erdtree
-      hyperfine
       entr
-      fzf
-      ngrok
-      zsh-fzf-tab
-      zsh-completions
-      nix-zsh-completions
-      zsh
+      erdtree
+      eza
       fd
-      sd
       ffmpeg
-      ripgrep
-      bat
-      zoxide
+      fzf
+      gawkInteractive
+      git
+      gnugrep
+      gnused
+      (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
+      hyperfine
+      inetutils
+      jless
+      jq
       just
-
-      #neovim
+      ngrok
+      nix-zsh-completions
+      nixpkgs-fmt
+      nixpacks
+      nurl
+      ripgrep
+      sd
+      xq-xml
+      zoxide
+      zsh
+      zsh-completions
+      zsh-fzf-tab
 
       # Compilers and runtimes
       deno
-      nodejs_20
-      nodePackages.pnpm
       elixir_1_16
-      emscripten
+      inputs.lexical-lsp.packages.${system}.lexical
       erlang
-      livebook
+      emscripten
       go
-      templ
+      livebook
+      nodePackages.pnpm
+      nodejs_20
+      protobuf_25
       python312
+      templ
 
       # rust
       cargo
       perl
       rustc
+      sccache
 
       # Container and cloud tools
+      _1password
       act
       awscli2
       docker
       docker-compose
-      podman
       github-cli
-      prometheus
-      terraform
-      tilt
       k9s
       kubectl
       kubernetes-helm
+      podman
+      prometheus # monitoring
+      cf-terraforming # terraform for cloudflare
+      terraform # terraform
+      tilt # dev tool for k8s
+      delta # diff tool
+      difftastic # diff tool
+      htop-vim # htop with vim bindings
+      iftop # network monitor
+      lazygit # git UI
+      lazydocker # docker UI
+      visidata # spreadsheet for the terminal
 
-      delta
-      difftastic
-      htop-vim
-      iftop
-      lazygit
-      lazydocker
-      visidata
+      railway # railway.app
+      flyctl # fly.io
+      tldr # docs for CLI commands
 
-      railway
-      flyctl
-      tldr
-
-      pandoc
+      pandoc # document converter
+      # texliveFull
+      grc # colorize output of various commands
     ]);
   };
 }

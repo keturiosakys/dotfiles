@@ -42,6 +42,10 @@ function jqf() {
 		--preview "cat ${1} | jq {q}"
 }
 
+function notify() {
+	printf "]777;notify;%s;%s\\" "${1}" "${2}"
+}
+
 #function pr() {
 #	gh pr list --json='number,title,author' | jq -r '.[] | "#\(.number) - \(.title) | \(.author.name)" '
 #

@@ -1,31 +1,43 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
 
   home = {
     packages = with pkgs; [
-
       biome
-      prettierd
-
-      nixpkgs-fmt
-
-      rust-analyzer
       clippy
-
-      stylua
+      eslint_d
       gopls
-
+      nixpkgs-fmt
+      prettierd
+      rust-analyzer
+      stylua
       yamlfmt
     ];
   };
 
   programs.neovim =
     let
-
       fetchFromGitHub = pkgs.fetchFromGitHub;
       buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
+      # toLua = str: "lua << EOF\n${str}\nEOF\n";
+      # toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
 
-      toLua = str: "lua << EOF\n${str}\nEOF\n";
-      toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+      laurynas = buildVimPlugin {
+        name = "laurynas";
+        src = ./.;
+      };
+
+      undo-tree = buildVimPlugin {
+        pname = "undotree";
+        version = "2023-12-29";
+        src = fetchFromGitHub {
+          owner = "jiaoshijie";
+          repo = "undotree";
+          rev = "80552a0180b49e5ba072c89ae91ce5d4e3aed36b";
+          sha256 = "sha256-clxoKM5kusRz8OR5+Z+4NS0WsoMx9tdyi9GG+sE6r3s=";
+        };
+      };
 
       rose-pine = buildVimPlugin {
         pname = "rose-pine";
@@ -50,12 +62,38 @@
         };
         meta.homepage = "https://github.com/ThePrimeagen/harpoon";
       };
+
+      mini-move = buildVimPlugin rec {
+        pname = "mini-move";
+        version = "0.11.0";
+        src = fetchFromGitHub {
+          owner = "echasnovski";
+          repo = "mini.move";
+          rev = "v${version}";
+          sha256 = "sha256-lgRM8D3TbQi0WYXYjcXq8uTen6qwVo/nKv6cEPoDPoA=";
+        };
+        meta.homepage = "https://github.com/echasnovski/mini.nvim";
+      };
+
+      mini-clue = buildVimPlugin rec {
+        pname = "mini-clue";
+        version = "0.11.0";
+        src = fetchFromGitHub {
+          owner = "echasnovski";
+          repo = "mini.clue";
+          rev = "v${version}";
+          sha256 = "sha256-HV+ezAozENXFFNqfz8efuTvDZJWFym14/TBf1Z1AKsc=";
+        };
+        meta.homepage = "https://github.com/echasnovski/mini.nvim";
+      };
+
+
     in
     {
       enable = true;
-
       vimAlias = true;
       vimdiffAlias = true;
+      package = pkgs.neovim-nightly;
 
       extraPackages = with pkgs; [
         nodePackages_latest."@astrojs/language-server"
@@ -64,53 +102,40 @@
         helm-ls
         dockerfile-language-server-nodejs
         docker-compose-language-service
+        elixir-ls
 
         lua-language-server
         nil
         tailwindcss-language-server
         terraform-ls
+        tflint
         nodePackages_latest.typescript-language-server
         vscode-langservers-extracted
         yaml-language-server
       ];
 
-      plugins = with pkgs.vimPlugins; [
-        {
-          plugin = aerial-nvim;
-          config = toLuaFile ./plugins/aerial.lua;
-        }
+      plugins = (with pkgs.vimPlugins; [
+        aerial-nvim
+        comment-nvim
 
-        {
-          plugin = comment-nvim;
-          config = toLua "require(\"Comment\").setup()";
-        }
-
-        {
-          plugin = dressing-nvim;
-          config = toLuaFile ./plugins/dressing.lua;
-        }
-        {
-          plugin = harpoon;
-          config = toLuaFile ./plugins/harpoon.lua;
-        }
+        dressing-nvim
+        harpoon
         plenary-nvim
         popup-nvim
         SchemaStore-nvim
         tabular
-        nvim-web-devicons
-        {
-          plugin = todo-comments-nvim;
-          config = toLua "require(\"todo-comments\").setup()";
-        }
+        # nvim-web-devicons
+        todo-comments-nvim
         indent-blankline-nvim
-        {
-          plugin = gitsigns-nvim;
-          config = toLua "require(\"gitsigns\").setup()";
-        }
+        gitsigns-nvim
+
         vim-helm
-        # FIXME: mini-move is unavailable
         fidget-nvim
         vim-slime
+
+        mini-move
+        mini-clue
+        undo-tree
 
         #completions
         nvim-cmp
@@ -122,57 +147,36 @@
         cmp-treesitter
         cmp_luasnip
         luasnip
+        vim-fugitive
+        vim-rhubarb
 
         #LSP
         lspkind-nvim
         conform-nvim
-        nvim-navic
         rust-tools-nvim
-        {
-          plugin = nvim-lspconfig;
-          config = toLuaFile ./plugins/lsp/init.lua;
-        }
+        none-ls-nvim
+        nvim-lspconfig
+
 
         copilot-cmp
-        {
-          plugin = copilot-lua;
-          config = toLuaFile ./plugins/copilot.lua;
-        }
+        copilot-lua
 
 
         lsp-status-nvim
-        {
-          plugin = lualine-nvim;
-          config = toLuaFile ./plugins/lualine.lua;
-        }
+        lualine-nvim
 
         nui-nvim
-        {
-          plugin = neo-tree-nvim;
-          config = toLuaFile ./plugins/neotree.lua;
-        }
+        neo-tree-nvim
+        rose-pine
+        # smart-splits-nvim
+        Navigator-nvim
+        nvim-surround
+        nvim-spectre
 
-        {
-          plugin = rose-pine;
-          config = toLuaFile ./plugins/rose-pine.lua;
-        }
-
-        {
-          plugin = smart-splits-nvim;
-          config = toLuaFile ./plugins/splits.lua;
-        }
-
-        {
-          plugin = nvim-surround;
-          config = toLua "require(\"nvim-surround\").setup{}";
-        }
-        telescope-undo-nvim
-        # telescope-fzf-native-nvim
         telescope-zf-native-nvim
-        {
-          plugin = telescope-nvim;
-          config = toLuaFile ./plugins/telescope.lua;
-        }
+        telescope-nvim
+
+        nvim-unception
 
         nvim-treesitter-context
         nvim-treesitter-textobjects
@@ -183,11 +187,17 @@
             astro
             bash
             c
-            css
             comment
+            css
             dockerfile
+            eex
             elixir
+            fish
+            git_config
+            git_rebase
             go
+            gomod
+            gosum
             haskell
             hcl
             html
@@ -197,16 +207,23 @@
             jsonnet
             latex
             lua
+            make
             markdown
             markdown-inline
+            mermaid
             nix
             ocaml
+            ocaml_interface
             python
+            promql
             regex
+            requirements
             ruby
             rust
+            scala
             scss
             sql
+            styled
             svelte
             templ
             terraform
@@ -214,24 +231,23 @@
             tsx
             typescript
             vim
+            vimdoc
+            vue
             yaml
+            zig
           ]));
-          config = toLuaFile ./plugins/treesitter.lua;
         }
-      ];
+
+        # the actual config
+        laurynas
+      ]);
 
       extraLuaConfig = ''
-        ${builtins.readFile ./lua/g.lua }
-        ${builtins.readFile ./lua/options.lua }
-        ${builtins.readFile ./lua/keymaps.lua }
-        ${builtins.readFile ./lua/autocmds.lua }
+        require("laurynas")
       '';
     };
 
   xdg.configFile = {
-    "nvim/lua/utils.lua" = {
-      source = ./lua/utils.lua;
-    };
     "nvim/after" = {
       source = ./after;
       recursive = true;

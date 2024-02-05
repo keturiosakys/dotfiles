@@ -6,10 +6,15 @@
       userEmail = "laurynas.keturakis@gmail.com";
       difftastic = {
         enable = true;
+        display = "side-by-side";
       };
       extraConfig = {
         pull.ff = "only";
         init.defaultBranch = "main";
+        diff.tool = "difftastic";
+        difftool.prompt = false;
+        difftool.difftastic.cmd = "difftastic \"$LOCAL\" \"$REMOTE\"";
+        pager.difftool = true;
       };
 
       aliases = {

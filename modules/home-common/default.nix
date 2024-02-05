@@ -3,12 +3,14 @@
   imports = [
     ../bat
     ../espanso
+    ../fish
     ../fzf
     ../git
-    ../hammerspoon
-    ../karabiner
     ../neovim
     ../packages
+    ../starship
+    ../yamlfmt
+    ../wezterm
     ../zsh
   ];
 
@@ -35,11 +37,9 @@
 
   programs =
     {
-      home-manager.enable = true;
+      home-manager = { enable = true; };
       bash = { enable = true; };
-      fish = { enable = true; };
       ripgrep = { enable = true; };
-      starship = { enable = true; enableBashIntegration = false; };
       zoxide = { enable = true; };
       go = { enable = true; };
       direnv = { enable = true; nix-direnv.enable = true; };

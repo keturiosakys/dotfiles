@@ -1,14 +1,17 @@
 {
+  ":q" = "exit";
   "c" = "cargo";
-  "clip" = "open -a Dropover";
   "cat" = "bat";
-  "lg" = "lazygit";
+  "clip" = "open -a Dropover";
+  "drs" = "darwin-rebuild switch --flake ~/Code/keturiosakys/dotfiles --impure";
+  "gt" = "go test ./...";
+  "l" = "eza --long --classify --modified --octal-permissions --total-size --git";
+  "la" = "eza --long --all --hyperlink --classify --header --created --modified --accessed --octal-permissions --git";
   "ld" = "lazydocker";
+  "lg" = "lazygit";
   "ls" = "eza";
-  "l" = "eza -l -h";
-  "la" = "eza -l -a -h -m --icons --git";
-  "tree" = "erd -y inverted";
   "o" = "open";
-  "yless" = "jless --yaml";
+  "tree" = "erd -y inverted";
   "vim" = "nvim";
+  "yless" = "jless --yaml";
 }
