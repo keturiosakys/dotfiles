@@ -31,6 +31,56 @@ luasnip.add_snippets("ocaml", {
     }, { text("(* "), insert(1), text(" *)"), insert(0) }),
 })
 
+local mapping = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping({
+        i = cmp.config.close,
+        c = cmp.mapping.close(),
+    }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<CR>"] = cmp.mapping({
+        i = function(fallback)
+            if cmp.visible() and cmp.get_active_entry() then
+                cmp.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = false,
+                })
+            else
+                fallback()
+            end
+        end,
+        s = cmp.mapping.confirm({ select = true }),
+        c = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        }),
+    }),
+    ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = false }, { "i", "s", "c" }),
+    ["<C-j>"] = cmp.mapping(function(fallback)
+        if luasnip.jumpable(1) then
+            luasnip.jump(1)
+        else
+            fallback()
+        end
+    end, {
+        "i",
+        "s",
+    }),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+        if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+        else
+            fallback()
+        end
+    end, {
+        "i",
+        "s",
+    }),
+}
+
 cmp.setup({
     snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
@@ -56,53 +106,5 @@ cmp.setup({
         javascript = { "javascriptreact" },
         typescript = { "typescriptreact" },
     },
-    mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-        ["<C-f>"] = cmp.mapping({
-            i = cmp.config.close,
-            c = cmp.mapping.close(),
-        }),
-        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<CR>"] = cmp.mapping({
-            i = function(fallback)
-                if cmp.visible() and cmp.get_active_entry() then
-                    cmp.confirm({
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = false,
-                    })
-                else
-                    fallback()
-                end
-            end,
-            s = cmp.mapping.confirm({ select = true }),
-            c = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            }),
-        }),
-        ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = false }, { "i", "s", "c" }),
-        ["<C-j>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(1) then
-                luasnip.jump(1)
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-        ["<C-k>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-    },
+    mapping = mapping,
 })

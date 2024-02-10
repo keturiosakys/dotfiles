@@ -6,9 +6,11 @@ set --export fzf_history_opts "--nth=4.."
 set fzf_preview_dir_cmd eza -1 --color=always
 set fzf_preview_file_cmd bat --color=always
 
-function _nvim_fzf
+function _open_fzf
 	fd --type f --hidden --follow --exclude .git |
 		fzf \
+			--height=30% \
+			--layout=reverse \
 			--preview "$fzf_preview_file_cmd {}" \
 			--bind "enter:become($EDITOR {} 2>/dev/null)"
 end
@@ -24,6 +26,6 @@ function _rg_fzf_nvim
       --bind "enter:become($EDITOR {1} +{2})"
 end
 
-bind \co _nvim_fzf
+bind \co _open_fzf
 bind \e\co _rg_fzf_nvim
 

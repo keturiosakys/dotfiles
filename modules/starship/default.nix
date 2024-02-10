@@ -41,8 +41,8 @@
         cmd_duration = {
           disabled = false;
           min_time = 5000;
-          show_notifications = true;
-          min_time_to_notify = 10000;
+          # show_notifications = true;
+          # min_time_to_notify = 10000;
         };
         time = {
           disabled = false;

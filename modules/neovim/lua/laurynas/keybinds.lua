@@ -67,8 +67,11 @@ local keymaps = {
         ["<Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize left" },
     },
     n = {
-        -- ["L"] = { "<cmd>tabnext<CR>" },
-        -- ["H"] = { "<cmd>tabprev<CR>" },
+        ["[t"] = { "<cmd>tabprev<CR>", desc = "Previous tab" },
+        ["]t"] = { "<cmd>tabnext<CR>", desc = "Next tab" },
+        ["[b"] = { "<cmd>bprev<CR>", desc = "Previous buffer" },
+        ["]b"] = { "<cmd>bnext<CR>", desc = "Next buffer" },
+
         ["<C-t>"] = { function() toggle_term() end, desc = "Open Terminal" },
         ["<leader>t"] = { function() toggle_term() end, desc = "Open Terminal" },
         ["<leader>w"] = { "<cmd>w<CR>", desc = "Save" },
