@@ -26,6 +26,7 @@ in
       fd
       ffmpeg
       fzf
+      zf
       gawkInteractive
       git
       gnugrep
@@ -101,6 +102,7 @@ in
       grc # colorize output of various commands
 
       imagemagick # image manipulation
+      exercism # exercism.io
     ]);
   };
 }
