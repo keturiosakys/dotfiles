@@ -91,7 +91,7 @@ return {
 	command_palette_font_size = 16.0,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
-	hide_tab_bar_if_only_one_tab = false,
+	hide_tab_bar_if_only_one_tab = true,
 	enable_scroll_bar = false,
 	adjust_window_size_when_changing_font_size = false,
 	font_size = 14.0,

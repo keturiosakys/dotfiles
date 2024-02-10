@@ -10,6 +10,7 @@
           success_symbol = "[;](bold green)";
         };
         format = lib.strings.concatStrings [
+          "$time"
           "$nix_shell"
           "$os"
           "$directory"
@@ -20,9 +21,6 @@
           "$status"
           "$character"
         ];
-        # git_branch = {
-        #   symbol = " ";
-        # };
         directory = {
           truncation_length = 100;
           truncate_to_repo = false;
@@ -38,8 +36,17 @@
         nix_shell = {
           disabled = false;
           format = "[$symbol$name]($style) ";
-          # symbol = " ";
           symbol = "※ ";
+        };
+        cmd_duration = {
+          disabled = false;
+          min_time = 5000;
+          show_notifications = true;
+          min_time_to_notify = 10000;
+        };
+        time = {
+          disabled = false;
+          format = "[\\[$time\\]](dimmed) ";
         };
         status = {
           symbol = "×";

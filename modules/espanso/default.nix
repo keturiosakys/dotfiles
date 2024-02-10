@@ -22,10 +22,6 @@ let
           replace = "{{iso_date}}";
         }
         {
-          trigger = "fdate";
-          replace = "{{full_date}}";
-        }
-        {
           trigger = "sqldate";
           replace = "{{sqldate}}";
         }
@@ -50,11 +46,6 @@ let
           name = "iso_date";
           type = "date";
           params = { format = "%F"; };
-        }
-        {
-          name = "full_date";
-          type = "date";
-          params = { format = "%b %e, %Y"; };
         }
         {
           name = "sqldate";
