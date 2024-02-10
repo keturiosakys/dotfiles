@@ -47,7 +47,7 @@ lsp.astro.setup({})
 lsp.html.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
-    filetypes = { "html", "templ" },
+    filetypes = { "html", "templ", "heex" },
 })
 
 --[[ lsp.htmx.setup({
@@ -59,7 +59,13 @@ lsp.html.setup({
 lsp.cssls.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
-    filetypes = { "css", "scss", "less", "astro", "templ" },
+    filetypes = {
+        "css",
+        "scss",
+        "less",
+        "astro",
+        "templ",
+    },
     settings = {
         css = {
             lint = {
@@ -73,11 +79,12 @@ lsp.tailwindcss.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
     filetypes = {
-        "templ",
         "astro",
+        "heex",
         "javascript",
-        "typescript",
         "javascriptreact",
+        "templ",
+        "typescript",
         "typescriptreact",
     },
     root_dir = lsp.util.root_pattern("tailwind.config.js"),
@@ -92,6 +99,7 @@ lsp.emmet_language_server.setup({
         "html",
         "javascript",
         "javascriptreact",
+        "heex",
         "less",
         "sass",
         "scss",
@@ -101,6 +109,12 @@ lsp.emmet_language_server.setup({
         "typescriptreact",
         "vue",
     },
+})
+
+lsp.clangd.setup({
+    on_attach = on_attach,
+    capabilities = updated_capabilities,
+    cmd = { "clangd", "--background-index", "--clang-tidy", "--suggest-missing-includes" },
 })
 
 lsp.gopls.setup({
@@ -266,16 +280,16 @@ end
 
 conform.setup({
     formatters_by_ft = {
-        astro = { { "prettierd", "biome" } },
+        astro = { { "prettier", "biome" } },
         dune = { "ocamllsp" },
         go = { "gofmt" },
-        javascript = { { "prettierd", "biome" } },
+        javascript = { { "prettier", "biome" } },
         lua = { "stylua" },
         nix = { "nixpkgs_fmt" },
         python = { "isort", "black" },
         rust = { "rustfmt" },
         templ = { "templ" },
-        typescript = { { "prettierd", "biome" } },
+        typescript = { { "prettier", "biome" } },
         yaml = { "yamlfmt" },
     },
 

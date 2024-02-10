@@ -9,6 +9,9 @@ require("telescope").setup({
         dynamic_preview_title = true,
         sorting_strategy = "descending",
         layout_strategy = "flex",
+        layout_config = {
+            flip_columns = 160,
+        },
         preview = {
             filesize_limit = 0.1,
         },

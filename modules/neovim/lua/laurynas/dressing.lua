@@ -1,23 +1,20 @@
 require("dressing").setup({
     input = {
-        default_prompt = "➤ ",
+        default_prompt = "> ",
         builtin = {
             winhighlight = "Normal:Normal,NormalNC:Normal",
         },
         get_config = function()
-            if
-                vim.api.nvim_buf_get_option(0, "filetype") == "neo-tree"
-            then
-                return { enabled = false }
-            end
+            if vim.api.nvim_buf_get_option(0, "filetype") == "neo-tree" then return { enabled = false } end
         end,
     },
+
     select = {
-        backend = { "telescope", "builtin" },
+        backend = { "builtin", "nui" },
+
         builtin = {
-            win_options = {
-                winhighlight = "Normal:Normal,NormalNC:Normal",
-            },
+            winhighlight = "Normal:Normal,NormalNC:Normal",
+            relative = "cursor",
         },
     },
 })

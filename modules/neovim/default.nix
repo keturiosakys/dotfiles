@@ -6,10 +6,10 @@
     packages = with pkgs; [
       biome
       clippy
+      clang-tools
       eslint_d
       gopls
       nixpkgs-fmt
-      prettierd
       rust-analyzer
       stylua
       yamlfmt
@@ -98,6 +98,7 @@
       extraPackages = with pkgs; [
         nodePackages_latest."@astrojs/language-server"
         nodePackages_latest.bash-language-server
+        nodePackages_latest.prettier
         emmet-language-server
         helm-ls
         dockerfile-language-server-nodejs

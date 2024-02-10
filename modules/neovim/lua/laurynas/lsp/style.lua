@@ -4,8 +4,15 @@ vim.fn.sign_define("DiagnosticSignInfo", { text = "> ", texthl = "DiagnosticSign
 vim.fn.sign_define("DiagnosticSignHint", { text = "~", texthl = "DiagnosticSignHint" })
 
 vim.diagnostic.config({
+    float = {
+        max_width = 65,
+        max_height = 30,
+        wrap = true,
+        border = "rounded",
+    },
     underline = { severity = vim.diagnostic.severity.ERROR },
     virtual_text = true,
+
     signs = {
         linehl = {
             [vim.diagnostic.severity.ERROR] = "DiagnosticLineHlError",
@@ -18,28 +25,19 @@ vim.diagnostic.config({
     severity_sort = true,
 })
 
-local border = {
-    { "🭽", "FloatBorder" },
-    { "▔", "FloatBorder" },
-    { "🭾", "FloatBorder" },
-    { "▕", "FloatBorder" },
-    { "🭿", "FloatBorder" },
-    { "▁", "FloatBorder" },
-    { "🭼", "FloatBorder" },
-    { "▏", "FloatBorder" },
-}
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.border = opts.border or border
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+    max_width = 65,
+    max_height = 30,
+})
+
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "single",
+    border = "rounded",
+
+    max_width = 65,
+    max_height = 30,
     silent = true,
     focusable = false,
 })

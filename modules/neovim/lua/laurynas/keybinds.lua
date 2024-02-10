@@ -1,8 +1,7 @@
 local set_keymaps = require("laurynas.utils").set_keymaps
--- local splits = require("smart-splits")
 
 local function toggle_term()
-    for i, buffer in ipairs(vim.api.nvim_list_bufs()) do
+    for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
         local buffer_name = vim.api.nvim_buf_get_name(buffer)
         if string.sub(buffer_name, 1, 7) == "term://" then
             vim.api.nvim_win_set_buf(0, buffer)
@@ -12,11 +11,15 @@ local function toggle_term()
     vim.api.nvim_command(":terminal")
 end
 
+local harpoon = require("harpoon")
+
+local symbols = require("laurynas.symbols")
+
 local keymaps = {
     [{ "n", "v" }] = {
         ["gh"] = { "^", desc = "Go to: beginning of the line (non-whitespace char)" },
         ["gl"] = { "$", desc = "Go to: end of the line" },
-        ["<seader>S"] = {
+        ["<leader>S"] = {
             function() require("spectre").toggle() end,
             desc = "Spectre search",
         },
@@ -58,32 +61,21 @@ local keymaps = {
         ["<C-k>"] = { "<cmd>NavigatorUp<CR>", desc = "Move to above split" },
         ["<C-l>"] = { "<cmd>NavigatorRight<CR>", desc = "Move to right split" },
 
-        ["<Left>"] = { "<cmd>bp<CR>", desc = "Move to previously opened buffer" },
-        ["<Right>"] = { "<cmd>bn<CR>", desc = "Move to next opened buffer" },
-        ["<Up>"] = { "<cmd>tabprevious<CR>", desc = "Move to previously opened tab" },
-        ["<Down>"] = { "<cmd>tabnext<CR>", desc = "Move to next opened tab" },
+        ["<Up>"] = { "<cmd>resize +2<CR>", desc = "Resize down" },
+        ["<Down>"] = { "<cmd>resize -2<CR>", desc = "Resize up" },
+        ["<Left>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize right" },
+        ["<Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize left" },
     },
     n = {
         -- ["L"] = { "<cmd>tabnext<CR>" },
         -- ["H"] = { "<cmd>tabprev<CR>" },
-        ["<C-t>"] = {
-            function() toggle_term() end,
-            desc = "Open Terminal",
-        },
-        ["<leader>t"] = {
-            function() toggle_term() end,
-            desc = "Open Terminal",
-        },
+        ["<C-t>"] = { function() toggle_term() end, desc = "Open Terminal" },
+        ["<leader>t"] = { function() toggle_term() end, desc = "Open Terminal" },
         ["<leader>w"] = { "<cmd>w<CR>", desc = "Save" },
         ["<leader>x"] = { "<cmd>bdelete<CR>", desc = "Kill buffer" },
         ["<leader>q"] = { "<cmd>q<CR>", desc = "Quit" },
         ["<leader>Q"] = { "<cmd>qa<CR>", desc = "Quit all" },
-        -- ["<leader>t"] = { "<cmd>term<CR>", desc = "Open Terminal in the current" },
-        -- ["<leader>T"] = { "<cmd>tabnew | term<CR>", desc = "Open Terminal in new tab" },
-        ["<ESC>"] = {
-            ":nohlsearch<Bar>:echo<CR>",
-            desc = "Remove search highlights",
-        },
+        ["<ESC>"] = { ":nohlsearch<Bar>:echo<CR>", desc = "Remove search highlights" },
         ["<C-Tab>"] = { "<C-^>" },
         ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, desc = "Comment line" },
         -- always center the viewport after executing vertical movement
@@ -118,7 +110,6 @@ local keymaps = {
         -- TELESCOPE
         ["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Search files" },
         ["<leader>."] = { function() require("telescope.builtin").find_files({ cwd = vim.fn.expand("%:p:h") }) end, desc = "Search files in cwd" },
-        ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Search files" },
 
         ["<leader>fF"] = {
             function() require("telescope.builtin").find_files({ hidden = true }) end,
@@ -167,34 +158,22 @@ local keymaps = {
         },
 
         -- HARPOON
-        ["<leader>fa"] = { function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon menu" },
-        ["<C-e>"] = { function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon menu" },
-        ["<leader>a"] = { function() require("harpoon"):list():append() end, desc = "Add to Harpoon" },
-        ["<leader>1"] = { function() require("harpoon"):list():select(1) end, desc = "Harpoon 1" },
-        ["<leader>2"] = { function() require("harpoon"):list():select(2) end, desc = "Harpoon 2" },
-        ["<leader>3"] = { function() require("harpoon"):list():select(3) end, desc = "Harpoon 3" },
-        ["<leader>4"] = { function() require("harpoon"):list():select(4) end, desc = "harpoon 4" },
+        ["<leader>fa"] = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon menu" },
+        ["<C-e>"] = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon menu" },
+        ["<leader>a"] = { function() harpoon:list():append() end, desc = "Add to Harpoon" },
+        ["<leader>1"] = { function() harpoon:list():select(1) end, desc = "Harpoon 1" },
+        ["<leader>2"] = { function() harpoon:list():select(2) end, desc = "Harpoon 2" },
+        ["<leader>3"] = { function() harpoon:list():select(3) end, desc = "Harpoon 3" },
+        ["<leader>4"] = { function() harpoon:list():select(4) end, desc = "harpoon 4" },
 
         -- LSP
         ["K"] = {
             function() vim.lsp.buf.hover() end,
             desc = "Hover documentation",
         },
-        ["<leader>ld"] = {
-            function() vim.diagnostic.open_float() end,
-            desc = "Hover diagnostics",
-        },
         ["<leader>d"] = {
             function() vim.diagnostic.open_float() end,
             desc = "Hover diagnostics",
-        },
-        ["<leader>lD"] = {
-            function()
-                require("telescope.builtin").diagnostics({
-                    layout_strategy = "vertical",
-                })
-            end,
-            desc = "List all diagnostics",
         },
         ["<leader>D"] = {
             function()
@@ -212,22 +191,13 @@ local keymaps = {
             function() vim.diagnostic.goto_prev() end,
             desc = "Go to next diagnostic",
         },
-        ["<leader>ls"] = {
-            "<cmd>AerialToggle<CR>",
-            desc = "Show document symbols",
-        },
-        ["gs"] = {
-            "<cmd>AerialToggle float<CR>",
-            desc = "Show document symbols",
-        },
-        ["<leader>lS"] = {
-            function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
-            desc = "List all symbols",
-        },
-        ["gS"] = {
-            function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
-            desc = "List all symbols",
-        },
+        -- ["<leader>ls"] = { "<cmd>AerialToggle<CR>", desc = "Show document symbols" },
+        ["gs"] = { "<cmd>AerialToggle<CR>", desc = "Show document symbols" },
+        ["<leader>fs"] = { function() symbols.get() end, desc = "Show document symbols" },
+        -- ["gs"] = { function() symbols.get() end, desc = "Show document symbols" },
+        ["<leader>fS"] = { function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, desc = "List all symbols" },
+        ["gS"] = { function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, desc = "List all symbols" },
+
         ["<leader>la"] = {
             function() vim.lsp.buf.code_action() end,
             desc = "LSP code action",
@@ -249,11 +219,8 @@ local keymaps = {
             function() vim.lsp.buf.rename() end,
             desc = "Rename current symbol",
         },
-        ["<leader>lh"] = {
-            function() vim.lsp.buf.signature_help() end,
-            desc = "Signature help",
-        },
         ["<leader>lR"] = { "<cmd>LspRestart<CR>", desc = "LSP Restart" },
+
         ["gd"] = {
             function()
                 require("telescope.builtin").lsp_definitions()
