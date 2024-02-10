@@ -1,6 +1,17 @@
 local set_keymaps = require("laurynas.utils").set_keymaps
 -- local splits = require("smart-splits")
 
+local function toggle_term()
+    for i, buffer in ipairs(vim.api.nvim_list_bufs()) do
+        local buffer_name = vim.api.nvim_buf_get_name(buffer)
+        if string.sub(buffer_name, 1, 7) == "term://" then
+            vim.api.nvim_win_set_buf(0, buffer)
+            return
+        end
+    end
+    vim.api.nvim_command(":terminal")
+end
+
 local keymaps = {
     [{ "n", "v" }] = {
         ["gh"] = { "^", desc = "Go to: beginning of the line (non-whitespace char)" },
@@ -55,17 +66,12 @@ local keymaps = {
     n = {
         -- ["L"] = { "<cmd>tabnext<CR>" },
         -- ["H"] = { "<cmd>tabprev<CR>" },
+        ["<C-t>"] = {
+            function() toggle_term() end,
+            desc = "Open Terminal",
+        },
         ["<leader>t"] = {
-            function()
-                for i, buffer in ipairs(vim.api.nvim_list_bufs()) do
-                    local buffer_name = vim.api.nvim_buf_get_name(buffer)
-                    if string.sub(buffer_name, 1, 7) == "term://" then
-                        vim.api.nvim_win_set_buf(0, buffer)
-                        return
-                    end
-                end
-                vim.api.nvim_command(":terminal")
-            end,
+            function() toggle_term() end,
             desc = "Open Terminal",
         },
         ["<leader>w"] = { "<cmd>w<CR>", desc = "Save" },
@@ -342,7 +348,7 @@ local keymaps = {
         ["<C-f>"] = { "<right>" },
         ["<C-a>"] = { "<C-o>I" },
         ["<C-j>"] = { "<Nop>" },
-        ["<C-k>"] = { "<Nop>" },
+        ["<C-k>"] = { function() vim.lsp.buf.signature_help() end, desc = "Show function signature" },
         ["<C-p>"] = { "<C-o>k" },
         ["<C-n>"] = { "<C-o>j" },
         --["<C-y>"] = { vim.fn["copilot#Accept"]("<CR>") },

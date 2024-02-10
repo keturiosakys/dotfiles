@@ -29,6 +29,7 @@
       "iina"
       "iterm2"
       "keyboardcleantool"
+      "markedit"
       "mixxx"
       "middle"
       "obsidian"

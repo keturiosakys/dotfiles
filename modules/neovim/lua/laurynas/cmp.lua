@@ -1,4 +1,3 @@
-
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
@@ -42,6 +41,7 @@ cmp.setup({
         { name = "luasnip", max_item_count = 3 },
         { name = "path" },
         { name = "buffer", max_item_count = 3 },
+        { name = "nvim_lsp_signature_help" },
     },
     formatting = {
         fields = { "abbr", "kind", "menu" },

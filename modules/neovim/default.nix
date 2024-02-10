@@ -147,6 +147,9 @@
         cmp-treesitter
         cmp_luasnip
         luasnip
+        cmp-nvim-lsp-signature-help
+
+        #git
         vim-fugitive
         vim-rhubarb
 
@@ -168,7 +171,6 @@
         nui-nvim
         neo-tree-nvim
         rose-pine
-        # smart-splits-nvim
         Navigator-nvim
         nvim-surround
         nvim-spectre
@@ -200,6 +202,7 @@
             gosum
             haskell
             hcl
+            heex
             html
             java
             javascript

@@ -43,8 +43,10 @@ M.modifiers = { "alt" }
 ---
 --- Parameters:
 ---  * mapping - A table containing single characters with their associated app
-function M:bindHotkeys(mapping)
-	for key, app_name in pairs(mapping) do
+function M:bindHotkeys(toggleMapping, holdMapping, modifiers)
+	M.modifiers = modifiers or M.modifiers
+
+	for key, app_name in pairs(toggleMapping) do
 		hs.hotkey.bind(M.modifiers, key, function()
 			local app = hs.application.get(app_name)
 			local focused = hs.application.frontmostApplication()
@@ -54,6 +56,21 @@ function M:bindHotkeys(mapping)
 				hs.application.launchOrFocus(app_name)
 			end
 		end)
+	end
+
+	for key, app_name in pairs(holdMapping) do
+		hs.hotkey.bind(M.modifiers, key, function()
+			local app = hs.application.get(app_name)
+			local focused = hs.application.frontmostApplication()
+			if app and app ~= focused then
+				hs.application.launchOrFocus(app_name)
+			end
+		end, function()
+			local app = hs.application.get(app_name)
+			if app then
+				app:hide()
+			end
+		end, nil)
 	end
 end
 

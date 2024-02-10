@@ -11,3 +11,4 @@ spoon["KillOnLostFocus"]:start()
 
 local keybinds = require("keybinds")
 keybinds:init()
+

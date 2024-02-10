@@ -10,6 +10,8 @@
   "ld" = "lazydocker";
   "lg" = "lazygit";
   "ls" = "eza";
+  "marked" = "open -a Marked 2";
+  "markedit" = "open -a MarkEdit";
   "o" = "open";
   "tree" = "erd -y inverted";
   "vim" = "nvim";

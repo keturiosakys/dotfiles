@@ -13,9 +13,9 @@ require("laurynas.comment")
 require("laurynas.spectre")
 require("laurynas.surround")
 
+require("laurynas.lsp.style")
 require("laurynas.lsp")
 require("laurynas.cmp")
-require("laurynas.lsp.style")
 
 require("laurynas.copilot")
 require("laurynas.indent-blankline")

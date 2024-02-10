@@ -37,5 +37,8 @@
         "/Users/laurynas-fp/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after",
         "${3rd}/luassert/library",
         "${3rd}/luv/library"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }

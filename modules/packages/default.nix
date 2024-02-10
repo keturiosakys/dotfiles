@@ -99,6 +99,8 @@ in
       pandoc # document converter
       # texliveFull
       grc # colorize output of various commands
+
+      imagemagick # image manipulation
     ]);
   };
 }

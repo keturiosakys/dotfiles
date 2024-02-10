@@ -60,11 +60,15 @@ end
 function M:init()
 	hs.loadSpoon("AppLauncher")
 	spoon.AppLauncher:bindHotkeys({
+		-- for one hits
 		["return"] = "WezTerm",
 		q = "Tot",
 		f = "Finder",
 		o = "Obsidian",
-	})
+	}, {
+			-- for holds
+		a = "Arc",
+	}, { "alt" })
 
 	local screen = hs.screen.mainScreen()
 	local spaces = hs.spaces.spacesForScreen(screen)
@@ -121,6 +125,12 @@ function M:init()
 		yabai({ "window", "--toggle", "float" })
 		managerMode:exit()
 	end)
+
+	managerMode:bind("", "=", nil, function()
+		yabai({ "space", "--balance" })
+		managerMode:exit()
+	end)
+
 end
 
 return M
