@@ -13,7 +13,6 @@ local keys = {
 	{ key = "4", mods = "CTRL", action = act.SendKey({ key = "F4" }) },
 	{ key = "5", mods = "CTRL", action = act.SendKey({ key = "F5" }) },
 	{ key = "Space", mods = "LEADER", action = act.QuickSelect },
-	{ key = "c", mods = "SUPER|SHIFT", action = act.EmitEvent("get-pane-id") },
 	bind_if(is_outside_vim, "h", "CTRL", act.ActivatePaneDirection("Left")),
 	bind_if(is_outside_vim, "l", "CTRL", act.ActivatePaneDirection("Right")),
 	bind_if(is_outside_vim, "j", "CTRL", act.ActivatePaneDirection("Down")),

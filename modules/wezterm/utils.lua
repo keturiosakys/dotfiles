@@ -63,15 +63,8 @@ M.update_status_bar = function(window, pane)
 
 	cwd = cwd:gsub("^/Users/laurynas%-fp", "~")
 
-	local pane_id = pane:pane_id()
-
 	window:set_right_status(
 		fmt({ { Text = "[" .. window:active_workspace() .. "]" } })
-			.. " "
-			.. fmt({
-				{ Attribute = { Italic = true } },
-				{ Text = tostring(pane_id) },
-			})
 			.. " "
 			.. fmt({
 				{ Foreground = { Color = "#6e6a86" } },
