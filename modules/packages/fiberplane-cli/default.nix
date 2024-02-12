@@ -1,37 +1,25 @@
-{ fetchFromGitHub, rustPlatform, darwin, installShellFiles, ... }:
+{ pkgs ? import <nixpkgs> { }, installShellFiles, ... }:
 let
-  frameworks = darwin.apple_sdk.frameworks;
   name = "fp";
-  version = "2.18.0";
+  version = "2.19.0";
+  #TODO: adjust for platforms
 in
+pkgs.stdenv.mkDerivation {
+  inherit name version;
+  src = pkgs.fetchurl {
+    url = "https://fp.dev/fp/v${version}/aarch64-apple-darwin/fp";
+    sha256 = "sha256-Af8pur5BthryJTB8vRZgbkGLgCqpC2mpeYEiTPwItZo=";
+  };
 
-rustPlatform.buildRustPackage {
-  pname = name;
-  inherit version;
-
-  buildInputs = [
-    frameworks.IOKit
-    frameworks.CoreFoundation
-    frameworks.CoreServices
-    frameworks.Security
-    frameworks.SystemConfiguration
-  ];
+  phases = "installPhase postInstall";
 
   nativeBuildInputs = [ installShellFiles ];
 
-  src = fetchFromGitHub {
-    owner = "fiberplane";
-    repo = name;
-    rev = "20e8a66efd4ed3b695af640533ec44d30f781fa1";
-    hash = "sha256-gGYaaudTWs5qTYYrvzhexQFSFWNxzUpTBcGaLP+S+Zw=";
-  };
-
-  cargoHash = "sha256-ParS9Klex4s6oDTJ3FCxR+8oZ9Qo5zecKZqMfmdP48Q=";
-
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    allowBuiltinFetchGit = true;
-  };
+  installPhase = ''
+    mkdir -p $out/bin
+    cp $src $out/bin/fp
+    chmod +x $out/bin/fp
+  '';
 
   postInstall = ''
     installShellCompletion --cmd fp \
@@ -45,3 +33,4 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/fiberplane/fp";
   };
 }
+
