@@ -8,6 +8,7 @@
       clippy
       clang-tools
       eslint_d
+      elixir-ls
       gopls
       nixpkgs-fmt
       rust-analyzer
@@ -20,8 +21,6 @@
     let
       fetchFromGitHub = pkgs.fetchFromGitHub;
       buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
-      # toLua = str: "lua << EOF\n${str}\nEOF\n";
-      # toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
 
       laurynas = buildVimPlugin {
         name = "laurynas";
