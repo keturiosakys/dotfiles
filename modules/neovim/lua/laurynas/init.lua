@@ -2,7 +2,7 @@ require("laurynas.utils")
 require("laurynas.g")
 require("laurynas.options")
 
-require("laurynas.rose-pine")
+require("laurynas.colorscheme")
 require("laurynas.dressing")
 require("laurynas.gitsigns")
 require("laurynas.filetypes")

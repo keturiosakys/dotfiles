@@ -1,8 +1,8 @@
 hs.loadSpoon("ReloadConfiguration")
 spoon["ReloadConfiguration"]:start()
 
-hs.loadSpoon("GithubNotifications")
-spoon["GithubNotifications"]:start()
+-- hs.loadSpoon("GithubNotifications")
+-- spoon["GithubNotifications"]:start()
 
 hs.loadSpoon("AppLauncher")
 

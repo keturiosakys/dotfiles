@@ -33,6 +33,9 @@
           trim_at = "-";
           style = "bold dimmed white";
         };
+        git_branch = {
+          symbol = " ";
+        };
         nix_shell = {
           disabled = false;
           format = "[$symbol$name]($style) ";

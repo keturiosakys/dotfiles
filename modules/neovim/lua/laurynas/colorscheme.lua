@@ -14,7 +14,7 @@ local options = {
     },
 
     highlight_groups = {
-        NormalFloat = { fg = "text", bg = "surface" },
+        NormalFloat = { fg = "text", bg = "NONE" },
         FloatBorder = { fg = "text", bg = "NONE" },
         TelescopeBorder = { fg = "subtle", bg = "None" },
         TelescopeNormal = { fg = "text", bg = "None" },

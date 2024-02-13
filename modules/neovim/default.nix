@@ -182,6 +182,8 @@
 
         nvim-treesitter-context
         nvim-treesitter-textobjects
+        nvim-treesitter-refactor
+        playground
         nvim-ts-context-commentstring
         nvim-ts-autotag
         {

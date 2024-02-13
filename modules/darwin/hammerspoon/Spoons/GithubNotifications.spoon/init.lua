@@ -36,14 +36,18 @@ local function update_menubar()
 		else
 			for _, notif in pairs(json) do
 				local title = notif.subject.title
-				local url = notif.subject.url
-				url = url:gsub("api.github.com/repos", "github.com")
-				url = url:gsub("pulls", "pull")
+				local latest_comment_url =
+					notif.subject.latest_comment_url:gsub("api.github.com/repos", "github.com"):gsub("pulls", "pull")
+
+				local url = notif.subject.url:gsub("api.github.com/repos", "github.com"):gsub("pulls", "pull")
+
+				local display_url = latest_comment_url and latest_comment_url or url
+
 				local repo = notif.repository.full_name
 				local item = {
 					title = title .. " - " .. repo,
 					fn = function()
-						hs.urlevent.openURL(url)
+						hs.urlevent.openURL(display_url)
 					end,
 				}
 				table.insert(menu_data, item)

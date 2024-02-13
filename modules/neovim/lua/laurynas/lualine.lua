@@ -8,7 +8,7 @@ local function macro_mode()
 end
 
 local options = {
-    icons_enabled = false,
+    icons_enabled = true,
     theme = "auto",
     component_separators = { left = " ", right = " " },
     section_separators = { left = " ", right = " " },
@@ -39,7 +39,13 @@ local lsp = function() return clients() end
 
 local sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diagnostics" },
+    lualine_b = {
+        { "branch", icon = "" },
+        {
+            "diagnostics",
+            symbols = { error = "E:", warn = "W:", info = "I:", hint = "H:" },
+        },
+    },
     lualine_c = {
         {
             "filename",
@@ -50,7 +56,6 @@ local sections = {
     },
     lualine_x = {
         lsp,
-
         {
             "diff",
             colored = false, -- Displays a colored diff status if set to true

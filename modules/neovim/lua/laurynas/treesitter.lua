@@ -1,5 +1,4 @@
 require("nvim-treesitter.configs").setup({
-    -- A list of parser names, or "all"
     ensure_installed = {},
     sync_install = false,
     highlight = {
@@ -11,20 +10,17 @@ require("nvim-treesitter.configs").setup({
     },
     refactor = {
         highlight_definitions = { enable = true },
-        highlight_current_scope = { enable = true },
-
         smart_rename = {
-            enable = false,
+            enable = true,
             keymaps = {
                 smart_rename = "gR",
             },
         },
-
         navigation = {
             enable = true,
             keymaps = {
-                goto_definition = "gnd",  -- mapping to go to definition of symbol under cursor
-                list_definitions = "gnD", -- mapping to list all definitions in current file
+                goto_definition = "gnd",
+                list_definitions = "gnD",
             },
         },
     },
@@ -82,7 +78,7 @@ require("nvim-treesitter.configs").setup({
     playground = {
         enable = true,
         disable = {},
-        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
         persist_queries = false, -- Whether the query persists across vim sessions
         keybindings = {
             toggle_query_editor = "o",
@@ -103,6 +99,5 @@ require("ts_context_commentstring").setup()
 require("treesitter-context").setup({
     mode = "topline",
 })
-
 
 vim.treesitter.language.register("markdown", "markdown.mdx")

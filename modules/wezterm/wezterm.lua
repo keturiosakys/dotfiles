@@ -59,6 +59,7 @@ wezterm.on(
 	end
 )
 return {
+	check_for_updates = false,
   allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
 	default_cursor_style = "BlinkingBlock",
 	max_fps = 240,
