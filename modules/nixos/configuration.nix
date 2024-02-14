@@ -56,9 +56,20 @@
   };
 
   networking.hostName = "gimli-son-of-gloin";
+  networking.networkmanager.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  services.xserver.enable = true;
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+
+  # Use gnome desktop environment
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   users.users = {
     laurynask = {
@@ -81,10 +92,5 @@
   #   };
   # };
 
-  services.xserver.displayManager.autoLogin.user = "laurynask";
-
-  # Use gnome desktop environment
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
   system.stateVersion = "23.11";
 }
