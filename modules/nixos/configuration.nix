@@ -51,7 +51,7 @@
       config.nix.registry;
 
   nix.settings = {
-    experimental-features = "nix-command flakes";
+    experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
   };
 
@@ -81,5 +81,10 @@
   #   };
   # };
 
+  services.xserver.displayManager.autoLogin.user = "laurynask";
+
+  # Use gnome desktop environment
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   system.stateVersion = "23.11";
 }
