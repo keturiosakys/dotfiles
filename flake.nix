@@ -29,7 +29,7 @@
     {
 
       nixosConfigurations = {
-        Gimli-Son-of-Gloin = nixpkgs.lib.nixosSystem {
+        nixos = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [ ./modules/nixos/configuration.nix ];
         };
