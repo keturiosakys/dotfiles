@@ -27,6 +27,14 @@
       };
     in
     {
+
+      nixosConfigurations = {
+        Gimli-Son-of-Gloin = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [ ./modules/nixos/configuration.nix ];
+        };
+      };
+
       darwinConfigurations = {
         Frodo-Baggins = darwin.lib.darwinSystem {
           system = macOS;
