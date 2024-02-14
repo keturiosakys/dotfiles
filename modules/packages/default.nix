@@ -51,6 +51,7 @@ in
       zsh-fzf-tab
 
       # Compilers and runtimes
+      bun
       deno
       elixir_1_16
       inputs.lexical-lsp.packages.${system}.lexical

@@ -4,11 +4,6 @@
       enable = true;
       enableBashIntegration = false;
       settings = {
-        add_newline = false;
-        line_break = { disabled = true; };
-        character = {
-          success_symbol = "[;](bold green)";
-        };
         format = lib.strings.concatStrings [
           "$time"
           "$nix_shell"
@@ -17,10 +12,16 @@
           "$container"
           "$aws"
           "$git_branch$git_status"
+          "$line_break"
           "$cmd_duration"
           "$status"
           "$character"
         ];
+        add_newline = false;
+        line_break = { disabled = false; };
+        character = {
+          success_symbol = "[;](bold green)";
+        };
         directory = {
           truncation_length = 100;
           truncate_to_repo = false;
