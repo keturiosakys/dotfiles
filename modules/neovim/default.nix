@@ -1,7 +1,5 @@
 { pkgs, inputs, ... }: {
 
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
-
   home = {
     packages = with pkgs; [
       biome
@@ -221,6 +219,7 @@
             ocaml_interface
             python
             promql
+            rasi
             regex
             requirements
             ruby

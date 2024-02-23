@@ -1,14 +1,12 @@
 { inputs, pkgs, ... }:
 let
   fiberplane-cli = pkgs.callPackage ./fiberplane-cli { };
-  choose = pkgs.callPackage ./choose-gui { };
   dotfiles = pkgs.writeShellScriptBin "dotfiles" (builtins.readFile ./scripts/dotfiles.sh);
 in
 {
   home = {
     packages = [
       fiberplane-cli
-      choose
       dotfiles
 
     ] ++ (with pkgs; [
@@ -33,7 +31,6 @@ in
       gnused
       (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
       hyperfine
-      inetutils
       jless
       jq
       just
@@ -60,9 +57,9 @@ in
       go
       livebook
       nodePackages.pnpm
-      nodejs_20
+      nodejs
       protobuf_25
-      python312
+      jupyter
       templ
 
       # rust

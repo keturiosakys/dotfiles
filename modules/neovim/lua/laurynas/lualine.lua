@@ -40,7 +40,8 @@ local lsp = function() return clients() end
 local sections = {
     lualine_a = { "mode" },
     lualine_b = {
-        { "branch", icon = "" },
+        -- { "branch", icon = "" },
+        { "branch" },
         {
             "diagnostics",
             symbols = { error = "E:", warn = "W:", info = "I:", hint = "H:" },

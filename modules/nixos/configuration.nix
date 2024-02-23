@@ -1,3 +1,4 @@
+{ username }:
 { inputs
 , lib
 , config
@@ -6,41 +7,31 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
-
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+
+    ../fonts
+
+    (import ../keyd { inherit username; })
+    (import ../xserver { inherit username; })
   ];
 
   nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
     ];
+
     config = {
       allowUnfree = true;
+      permittedInsecurePackages = [
+        "electron-25.9.0"
+      ];
     };
+
   };
 
-  # This will add each flake input as a registry
-  # To make nix3 commands consistent with your flake
   nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
-  # This will additionally add your inputs to the system's legacy channels
-  # Making legacy nix commands consistent as well, awesome!
   nix.nixPath = [ "/etc/nix/path" ];
   environment.etc =
     lib.mapAttrs'
@@ -55,42 +46,79 @@
     auto-optimise-store = true;
   };
 
-  networking.hostName = "gimli-son-of-gloin";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "gimli-son-of-gloin";
+    networkmanager = {
+      enable = true;
+      insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
+      unmanaged = [ "interface-name:wlp3s0" ];
+    };
+  };
+
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.xserver.enable = true;
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtl8814au ];
 
-  # Use gnome desktop environment
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  environment.systemPackages = with pkgs; [
+    feh
+    xclip
+    xorg.xev
+    via
+  ];
+  environment.variables.EDITOR = "nvim";
+  time.timeZone = "Europe/Amsterdam";
 
-  users.users = {
-    laurynask = {
-      isNormalUser = true;
-      description = "Laurynas Keturakis";
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [ git vim ];
+  services = {
+    gvfs.enable = true;
+    tumbler.enable = true;
+    greenclip.enable = true;
+    udev.packages = [ pkgs.via ];
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
   };
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
-  # services.openssh = {
-  #   enable = true;
-  #   settings = {
-  #     # Forbid root login through SSH.
-  #     PermitRootLogin = "no";
-  #     # Use keys only. Remove if you want to SSH using password (not recommended)
-  #     PasswordAuthentication = false;
-  #   };
-  # };
+  sound.enable = true;
+  hardware = {
+    keyboard.qmk.enable = true;
+    logitech = {
+      wireless.enable = true;
+      wireless.enableGraphical = true;
+    };
+    pulseaudio = {
+      enable = true;
+    };
+  };
+
+  programs = {
+    xfconf.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+      ];
+    };
+    dconf.enable = true;
+    fish.enable = true;
+    _1password-gui.enable = true;
+    _1password.enable = true;
+  };
+
+  users.users = {
+    ${username} = {
+      isNormalUser = true;
+      description = "Laurynas Keturakis";
+      extraGroups = [ "networkmanager" "wheel" "keyd" "docker" ];
+      shell = pkgs.fish;
+    };
+  };
 
   system.stateVersion = "23.11";
 }

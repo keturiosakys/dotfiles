@@ -270,6 +270,7 @@ local function hasPrettierConfig()
         or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.yaml") == 1
         or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.yml") == 1
         or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.js") == 1
+        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.mjs") == 1
         or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.cjs") == 1
     then
         return true

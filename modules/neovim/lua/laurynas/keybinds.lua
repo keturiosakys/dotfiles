@@ -106,6 +106,8 @@ local keymaps = {
             desc = "Quick find/replace for the word under the cursor",
         },
 
+        ["<leader>ga"] = { "<cmd>Git add %<CR><CR>", desc = "Stage current file" },
+
         ["<leader>e"] = { ":Neotree toggle reveal<CR>", desc = "Open Neotree" },
         -- SPLITS
         ["<leader>v"] = { ":vsplit<CR>", desc = "Split vertically" },

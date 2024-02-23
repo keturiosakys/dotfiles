@@ -1,16 +1,20 @@
 { config, pkgs, lib, ... }:
 let
   yaml = pkgs.formats.yaml { };
-  configPath = "Library/Application Support";
+  macOsConfigPath = "Library/Application Support";
   configs = {
     default = {
       toggle_key = "RIGHT_ALT";
       search_shortcut = "off";
       show_icon = false;
     };
+    obsidian = {
+      filter_class = "obsidian";
+      extra_includes = [ "../match/_obsidian.yml" ];
+    };
   };
   matches = {
-    base = { matches = [ ]; };
+    base = { };
     dates = {
       matches = [
         {
@@ -34,6 +38,9 @@ let
           replace = "laurynas@fiberplane.com";
         }
       ];
+    };
+    _obsidian = {
+      matches = [ ];
     };
     global_vars = {
       global_vars = [
@@ -59,35 +66,37 @@ in
 {
 
   services.espanso = {
-    enable = false;
+    enable = !pkgs.stdenv.isDarwin;
     inherit configs;
     inherit matches;
   };
 
+
+  # set the below one only in Darwin
   home.file =
     let
       configFiles = lib.mapAttrs'
         (name: value: {
-          name = "${configPath}/espanso/config/${name}.yml";
+          name = "${macOsConfigPath}/espanso/config/${name}.yml";
           value = { source = yaml.generate "${name}.yml" value; };
         })
         configs;
 
       matchFiles = lib.mapAttrs'
         (name: value: {
-          name = "${configPath}/espanso/match/${name}.yml";
+          name = "${macOsConfigPath}/espanso/match/${name}.yml";
           value = { source = yaml.generate "${name}.yml" value; };
         })
         matches;
 
       personalMatch =
         {
-          "${configPath}/espanso/match/personal.yml" = {
+          "${macOsConfigPath}/espanso/match/personal.yml" = {
             source = config.lib.file.mkOutOfStoreSymlink ./personal.yml;
           };
         };
     in
-    configFiles // matchFiles // personalMatch;
+    lib.optionalAttrs pkgs.stdenv.isDarwin (configFiles // matchFiles // personalMatch);
 
 
 

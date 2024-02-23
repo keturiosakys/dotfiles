@@ -7,15 +7,17 @@
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     lexical-lsp.url = "github:lexical-lsp/lexical";
-
   };
 
   outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs:
     let
       macOS = "aarch64-darwin";
+      linux = "x86_64-linux";
+      username = "laurynask";
       usernameWork = "laurynas-fp";
 
       Frodo-Baggins = import ./modules/darwin { username = usernameWork; };
+      Gimli = import ./modules/nixos/configuration.nix { inherit username; };
 
       overlays = [
         inputs.neovim-nightly-overlay.overlay
@@ -29,9 +31,20 @@
     {
 
       nixosConfigurations = {
-        Gimli-Son-of-Gloin = nixpkgs.lib.nixosSystem {
+        Gimli = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = [ ./modules/nixos/configuration.nix ];
+          modules = [
+            Gimli
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+                users.${username}.imports = [ ./modules/home-common ./modules/home-nixos ];
+              };
+            }
+          ];
         };
       };
 

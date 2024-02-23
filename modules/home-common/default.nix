@@ -38,11 +38,17 @@
   programs =
     {
       home-manager = { enable = true; };
+
+      atuin = {
+        enable = true;
+        flags = [ "--disable-up-arrow" ];
+      };
+
       bash = { enable = true; };
+      direnv = { enable = true; nix-direnv.enable = true; };
+      go = { enable = true; };
       ripgrep = { enable = true; };
       zoxide = { enable = true; };
-      go = { enable = true; };
-      direnv = { enable = true; nix-direnv.enable = true; };
     };
 
 }

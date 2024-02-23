@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ pkgs, lib, ... }: {
   programs = {
     starship = {
       enable = true;
@@ -18,7 +18,7 @@
           "$character"
         ];
         add_newline = false;
-        line_break = { disabled = false; };
+        line_break = { disabled = true; };
         character = {
           success_symbol = "[;](bold green)";
         };
@@ -35,7 +35,8 @@
           style = "bold dimmed white";
         };
         git_branch = {
-          symbol = " ";
+          # symbol = if pkgs.stdenv.isDarwin then " " else "";
+          symbol = "";
         };
         nix_shell = {
           disabled = false;

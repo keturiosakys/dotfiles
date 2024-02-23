@@ -4,6 +4,7 @@
   "cat" = "bat";
   "clip" = "open -a Dropover";
   "drs" = "darwin-rebuild switch --flake ~/Code/keturiosakys/dotfiles --impure";
+  "nrs" = "sudo nixos-rebuild switch --flake ~/Code/keturiosakys/dotfiles#Gimli";
   "gt" = "go test ./...";
   "l" = "eza --long --classify --modified --octal-permissions --total-size --git";
   "la" = "eza --long --all --hyperlink --classify --header --created --modified --accessed --octal-permissions --git";
