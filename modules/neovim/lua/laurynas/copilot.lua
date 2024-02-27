@@ -1,6 +1,6 @@
 require("copilot").setup({
     suggestion = {
-        enabled = true,
+        enabled = false,
         auto_trigger = true,
         keymap = {
             accept = "<C-y>",
@@ -8,4 +8,4 @@ require("copilot").setup({
     },
     panel = { enabled = false },
 })
--- require("copilot_cmp").setup()
+require("copilot_cmp").setup()

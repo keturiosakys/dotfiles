@@ -5,22 +5,22 @@ let
 in
 {
 
-  home-manager.users.${username} = {
-
-    home = {
-      packages = [
-        pkgs.keyd
-      ];
-
-      file.${keyd_file}.text = ''
-        [firefox]
-
-        meta = alt
-      '';
-    };
-
-  };
-
+  # home-manager.users.${username} = {
+  #
+  #   home = {
+  #     packages = [
+  #       pkgs.keyd
+  #     ];
+  #
+  #     file.${keyd_file}.text = ''
+  #       [firefox]
+  #
+  #       meta = alt
+  #     '';
+  #   };
+  #
+  # };
+  #
 
   services = {
     keyd = {

@@ -61,7 +61,7 @@ in
       enable = true;
       config = {
         bars = [{
-          position = "bottom";
+          position = "top";
           statusCommand = "${pkgs.i3status}/bin/i3status";
           fonts = {
             names = [

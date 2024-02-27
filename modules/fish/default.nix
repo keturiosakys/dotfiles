@@ -35,7 +35,7 @@ in
           --layout=reverse \
           --preview "cat $1 | jq {q}"
         '';
-        notify = "printf ']777;notify;%s;%s\\' '$1' '$2'";
+        notify = if pkgs.stdenv.isDarwin then "printf ']777;notify;%s;%s\\' '$1' '$2'" else "notify-send $1 $2";
       };
 
       plugins = [ ] ++ [

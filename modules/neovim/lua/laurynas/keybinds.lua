@@ -181,11 +181,7 @@ local keymaps = {
             desc = "Hover diagnostics",
         },
         ["<leader>D"] = {
-            function()
-                require("telescope.builtin").diagnostics({
-                    layout_strategy = "vertical",
-                })
-            end,
+            function() require("telescope.builtin").diagnostics() end,
             desc = "List all diagnostics",
         },
         ["]d"] = {
@@ -196,8 +192,16 @@ local keymaps = {
             function() vim.diagnostic.goto_prev() end,
             desc = "Go to next diagnostic",
         },
-        -- ["<leader>ls"] = { "<cmd>AerialToggle<CR>", desc = "Show document symbols" },
-        ["gs"] = { "<cmd>AerialToggle<CR>", desc = "Show document symbols" },
+        -- ["gs"] = { "<cmd>AerialToggle<CR>", desc = "Show document symbols" },
+        ["gs"] = {
+            function()
+                -- NOTE: Workaround for https://github.com/stevearc/aerial.nvim/issues/331
+                require("aerial").refetch_symbols()
+                vim.cmd.AerialToggle("float")
+                vim.cmd.doautocmd("BufWinEnter")
+            end,
+            desc = "Show document symbols",
+        },
         ["<leader>fs"] = { function() symbols.get() end, desc = "Show document symbols" },
         -- ["gs"] = { function() symbols.get() end, desc = "Show document symbols" },
         ["<leader>fS"] = { function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, desc = "List all symbols" },

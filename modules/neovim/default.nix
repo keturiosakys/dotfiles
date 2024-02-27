@@ -7,6 +7,7 @@
       clang-tools
       eslint_d
       elixir-ls
+      inputs.lexical-lsp.packages.${system}.lexical
       gopls
       nixpkgs-fmt
       rust-analyzer
@@ -34,6 +35,18 @@
           rev = "80552a0180b49e5ba072c89ae91ce5d4e3aed36b";
           sha256 = "sha256-clxoKM5kusRz8OR5+Z+4NS0WsoMx9tdyi9GG+sE6r3s=";
         };
+      };
+
+      toggler = buildVimPlugin rec {
+        pname = "toggler";
+        version = "v0.3.1";
+        src = fetchFromGitHub {
+          owner = "nguyenvukhang";
+          repo = "nvim-toggler";
+          rev = version;
+          sha256 = "sha256-6X+m7FeylME0J9hLx45bDqKvHxup3d+Hpa31VESKhrs=";
+        };
+        meta.homepage = "https://github.com/nguyenvukhang/nvim-toggler";
       };
 
       rose-pine = buildVimPlugin {
@@ -84,7 +97,6 @@
         meta.homepage = "https://github.com/echasnovski/mini.nvim";
       };
 
-
     in
     {
       enable = true;
@@ -122,7 +134,6 @@
         popup-nvim
         SchemaStore-nvim
         tabular
-        # nvim-web-devicons
         todo-comments-nvim
         indent-blankline-nvim
         gitsigns-nvim
@@ -133,6 +144,7 @@
 
         mini-move
         mini-clue
+        toggler
         undo-tree
 
         #completions
@@ -158,10 +170,8 @@
         none-ls-nvim
         nvim-lspconfig
 
-
         copilot-cmp
         copilot-lua
-
 
         lsp-status-nvim
         lualine-nvim

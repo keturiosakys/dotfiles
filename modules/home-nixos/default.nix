@@ -12,9 +12,11 @@
     _1password-gui
     discord
     google-chrome
+    brave
     newsflash
     obsidian
     slack
+    signal-desktop
 
     dnsutils
     gnutar
@@ -25,6 +27,7 @@
     guvcview
 
     libnotify
+    inotify-tools
     lm_sensors
     lsof
     ltrace
@@ -36,6 +39,16 @@
   programs = {
     vscode.enable = true;
     firefox.enable = true;
+    fish = {
+      functions = {
+        pbcopy = ''
+          xclip -sel clip
+        '';
+        pbpaste = ''
+          xclip -sel clip -o
+        '';
+      };
+    };
   };
 
   services = {

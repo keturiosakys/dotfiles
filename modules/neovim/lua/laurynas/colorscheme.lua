@@ -14,6 +14,50 @@ local options = {
     },
 
     highlight_groups = {
+
+        -- Syntax resets, toning down on colors and making operators more prominent
+
+        TSDefinition = { bg = "highlight_high" },
+
+        Keyword = { fg = "subtle" },
+        ["@keyword.return"] = { fg = "pine" },
+        ["@keyword.coroutine"] = { fg = "pine" },
+        ["@keyword.exception"] = { fg = "pine" },
+
+        ["@type"] = { fg = "text" },
+        ["@type.builtin"] = { fg = "pine" },
+
+        Property = { fg = "text" },
+
+        Macro = { fg = "iris" },
+        ["@constant.macro"] = { fg = "iris" },
+
+        Comment = { fg = "foam" },
+
+        ["@variable"] = { fg = "text" },
+        ["@variable.member"] = { fg = "text" },
+
+        ["@number"] = { fg = "rose" },
+        ["@number.float"] = { fg = "rose" },
+
+        ["@string.special.symbol"] = { fg = "rose" },
+        ["@string.special.path"] = { fg = "iris" },
+
+        ["@constructor"] = { fg = "text" },
+        ["@property"] = { fg = "text" },
+        ["@property_identifier"] = { fg = "highlight_high" },
+
+        ["@parameter"] = { fg = "highlight_medium" },
+
+        ["@function.builtin"] = { fg = "pine" },
+        ["@variable.builtin"] = { fg = "pine" },
+        ["@constant.builtin"] = { fg = "pine" },
+        ["@tag"] = { fg = "subtle" },
+        ["@tag.attribute"] = { fg = "foam" },
+
+        Operator = { fg = "love" },
+        ["@punctuation.special"] = { fg = "love" },
+
         NormalFloat = { fg = "text", bg = "NONE" },
         FloatBorder = { fg = "text", bg = "NONE" },
         TelescopeBorder = { fg = "subtle", bg = "None" },
@@ -31,6 +75,7 @@ local options = {
         VertSplit = { fg = "text", bg = "base" },
         NonText = { fg = "highlight_high", bg = "NONE" },
         VirtNonText = { fg = "muted", bg = "base" },
+        LspInlayHint = { fg = "muted", bg = "base" },
 
         DiagnosticLineHlError = { bg = "love", blend = 10 },
         DiagnosticLineHlWarn = { bg = "gold", blend = 10 },

@@ -53,6 +53,10 @@
       insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
       unmanaged = [ "interface-name:wlp3s0" ];
     };
+    firewall = {
+      enable = true;
+      allowPing = true;
+    };
   };
 
 
@@ -65,12 +69,12 @@
     feh
     xclip
     xorg.xev
-    via
   ];
   environment.variables.EDITOR = "nvim";
   time.timeZone = "Europe/Amsterdam";
 
   services = {
+    blueman.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
     greenclip.enable = true;
@@ -86,10 +90,23 @@
 
   sound.enable = true;
   hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+        };
+      };
+    };
     keyboard.qmk.enable = true;
     logitech = {
       wireless.enable = true;
       wireless.enableGraphical = true;
+    };
+    opengl = {
+      enable = true;
+      driSupport = true;
     };
     pulseaudio = {
       enable = true;

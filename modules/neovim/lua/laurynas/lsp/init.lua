@@ -95,6 +95,7 @@ lsp.emmet_language_server.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
     filetypes = {
+        "astro",
         "css",
         "html",
         "javascript",
@@ -131,8 +132,20 @@ lsp.gopls.setup({
     },
 })
 
+lsp.elixirls.setup({
+    on_attach = on_attach,
+    capabilities = updated_capabilities,
+    cmd = { "elixir-ls" },
+    settings = {
+        elixirLS = {
+            dialyzerEnabled = true,
+            fetchDeps = false,
+        },
+    },
+})
+
 lsp.lexical.setup({
-    cmd = { "lexical" },
+    cmd = { "/etc/profiles/per-user/laurynask/bin/lexical" },
     root_dir = function(fname) return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir() end,
     settings = {
         elixirLS = {
