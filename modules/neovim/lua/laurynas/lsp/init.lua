@@ -294,31 +294,26 @@ end
 
 conform.setup({
     formatters_by_ft = {
-        astro = { { "prettier", "biome" } },
+        astro = { {
+            "biome",
+            "prettier",
+        } },
         dune = { "ocamllsp" },
         go = { "gofmt" },
-        javascript = { { "prettier", "biome" } },
+        javascript = { {
+            "biome",
+            "prettier",
+        } },
         lua = { "stylua" },
         nix = { "nixpkgs_fmt" },
         python = { "isort", "black" },
         rust = { "rustfmt" },
         templ = { "templ" },
-        typescript = { { "prettier", "biome" } },
+        typescript = { {
+            "biome",
+            "prettier",
+        } },
         yaml = { "yamlfmt" },
-    },
-
-    formatter = {
-        biome = {
-            condition = function()
-                if hasPrettierConfig() then return false end
-            end,
-        },
-        prettierd = {
-            condition = function()
-                -- project root dir has prettier config
-                if hasPrettierConfig() then return true end
-            end,
-        },
     },
 })
 

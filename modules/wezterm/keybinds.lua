@@ -59,16 +59,6 @@ local keys = {
 			end),
 		}),
 	},
-	{
-		key = ",",
-		mods = "CMD",
-		action = act.SpawnCommandInNewTab({
-			args = {
-				"/Users/laurynas-fp/.nix-profile/bin/nvim",
-				"/Users/laurynas-fp/Code/keturiosakys/dotfiles",
-			},
-		}),
-	},
 }
 
 return keys

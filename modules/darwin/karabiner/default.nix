@@ -4,8 +4,8 @@
     "karabiner-elements"
   ];
 
-  home-manager.users.${username}.home.file = {
-    karabiner = {
+  home-manager.users.${username}.xdg.configFile = {
+    "karabiner/karabiner.json" = {
       source = ./karabiner.json;
     };
   };

@@ -55,7 +55,6 @@ in
       emscripten
       go
       gcc
-      glibc
       livebook
       nodePackages.pnpm
       nodejs

@@ -46,27 +46,27 @@ yabai -m rule --add app="^Overcast$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^FaceTime$" manage=off
 
-yabai -m rule --add app="^Ivory$" space=^3
-yabai -m rule --add app="^Signal$" space=^3
-yabai -m rule --add app="^Telegram$" space=^3
-yabai -m rule --add app="^WhatsApp$" space=^3
-yabai -m rule --add app="^Messenger$" space=^3
+yabai -m rule --add app="^Ivory$" space=^4
+yabai -m rule --add app="^Signal$" space=^4
+yabai -m rule --add app="^Telegram$" space=^4
+yabai -m rule --add app="^WhatsApp -" space=^4
+yabai -m rule --add app="^Messenger$" space=^4
 yabai -m rule --add app="^Parcel$" manage=off
-yabai -m rule --add app="^Octal$" space=^3
-yabai -m rule --add app="^Messages$" space=^3
+yabai -m rule --add app="^Octal$" space=^4
+yabai -m rule --add app="^Messages$" space=^4
 yabai -m rule --add app="^Digitakt$" manage=off
 yabai -m rule --add app="^Hand Mirror$" manage=off
-yabai -m rule --add app='^Mimestream$' space=^2
+yabai -m rule --add app='^Mimestream$' space=^3
 yabai -m rule --add app='^choose$' manage=off
 
 yabai -m rule --add app="^iA Presenter$" title="^presentation - .{0,}" manage=off
-yabai -m rule --add app='^Arc$' space=^1
-yabai -m rule --add app='^Firefox Developer Edition$' space=^1
+yabai -m rule --add app='^Arc$' space=^2
+yabai -m rule --add app='^Firefox Developer Edition$' space=^2
 yabai -m rule --add app="^Arc$" title="^Laurynas$" manage=off
-yabai -m rule --add app='^Slack$' space=^2
+yabai -m rule --add app='^Slack$' space=^3
 yabai -m rule --add app='^WezTerm$' space=^1
 yabai -m rule --add app='^Code$' space=^1
-yabai -m rule --add app='^Discord$' space=^3
+yabai -m rule --add app='^Discord$' space=^4
 
 echo "yabai configuration loaded.."
 

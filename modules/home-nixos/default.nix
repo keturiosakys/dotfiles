@@ -26,6 +26,8 @@
 
     guvcview
 
+    glibc
+
     libnotify
     inotify-tools
     lm_sensors

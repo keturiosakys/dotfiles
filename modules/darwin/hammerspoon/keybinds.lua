@@ -48,15 +48,6 @@ local function yabaiDirectional(cmd, direction)
 	yabai(cmd)
 end
 
-local function register(mod, key, msg, callback)
-	local f = function()
-		callback()
-		managerMode:exit()
-	end
-
-	managerMode:bind(mod, key, msg, f)
-end
-
 function M:init()
 	hs.loadSpoon("AppLauncher")
 	spoon.AppLauncher:bindHotkeys({
@@ -66,7 +57,7 @@ function M:init()
 		f = "Finder",
 		o = "Obsidian",
 	}, {
-			-- for holds
+		-- for holds
 		a = "Arc",
 	}, { "alt" })
 
@@ -74,42 +65,52 @@ function M:init()
 	local spaces = hs.spaces.spacesForScreen(screen)
 	local managerMode = hs.hotkey.modal.new("option", "x", "manager")
 
+	-- local function register(mod, key, msg, callback)
+	-- 	return managerMode:bind(mod, key, msg, function ()
+	-- 		callback()
+	-- 		managerMode:exit()
+	-- 	end)
+	-- end
+
 	managerMode:bind("", "escape", nil, function()
 		managerMode:exit()
 	end)
 
-	managerMode:bind("", "1", nil, function()
+	hs.hotkey.bind({ "option", "shift" }, "1", function()
 		moveToSpace(spaces, 1)
-		managerMode:exit()
-	end)
-	managerMode:bind("", "2", nil, function()
-		moveToSpace(spaces, 2)
-		managerMode:exit()
-	end)
-	managerMode:bind("", "3", nil, function()
-		moveToSpace(spaces, 3)
-		managerMode:exit()
-	end)
-	managerMode:bind("", "4", nil, function()
-		moveToSpace(spaces, 4)
-		managerMode:exit()
 	end)
 
-	managerMode:bind("", "h", nil, function()
+	hs.hotkey.bind({ "option", "shift" }, "2", function()
+		moveToSpace(spaces, 2)
+	end)
+	hs.hotkey.bind({ "option", "shift" }, "3", function()
+		moveToSpace(spaces, 3)
+	end)
+	hs.hotkey.bind({ "option", "shift" }, "4", function()
+		moveToSpace(spaces, 4)
+	end)
+
+	hs.hotkey.bind({ "option", "shift" }, "h", nil, function()
 		yabaiDirectional("focus", "left")
-		managerMode:exit()
 	end)
-	managerMode:bind("", "j", nil, function()
+	hs.hotkey.bind({ "option", "shift" }, "j", nil, function()
 		yabaiDirectional("focus", "down")
-		managerMode:exit()
 	end)
-	managerMode:bind("", "k", nil, function()
+	hs.hotkey.bind({ "option", "shift" }, "k", nil, function()
 		yabaiDirectional("focus", "up")
-		managerMode:exit()
 	end)
-	managerMode:bind("", "l", nil, function()
+	hs.hotkey.bind({ "option", "shift" }, "l", nil, function()
 		yabaiDirectional("focus", "right")
-		managerMode:exit()
+	end)
+
+	hs.hotkey.bind({ "option" }, "w", nil, function()
+		yabai({ "space", "--layout", "bsp" })
+	end)
+	hs.hotkey.bind({ "option" }, "t", nil, function()
+		yabai({ "space", "--layout", "stack" })
+	end)
+	hs.hotkey.bind({ "option", "shift" }, "space", nil, function()
+		yabai({ "window", "--toggle", "float" })
 	end)
 
 	managerMode:bind("", "space", nil, function()
@@ -130,7 +131,6 @@ function M:init()
 		yabai({ "space", "--balance" })
 		managerMode:exit()
 	end)
-
 end
 
 return M
