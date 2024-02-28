@@ -19,13 +19,14 @@ local options = {
 
         TSDefinition = { bg = "highlight_high" },
 
-        Keyword = { fg = "subtle" },
+        Keyword = { fg = "muted" },
         ["@keyword.return"] = { fg = "pine" },
         ["@keyword.coroutine"] = { fg = "pine" },
         ["@keyword.exception"] = { fg = "pine" },
 
+        Type = { fg = "text" },
         ["@type"] = { fg = "text" },
-        ["@type.builtin"] = { fg = "pine" },
+        ["@type.builtin"] = { fg = "text", bold = true },
 
         Property = { fg = "text" },
 
@@ -52,6 +53,7 @@ local options = {
         ["@function.builtin"] = { fg = "pine" },
         ["@variable.builtin"] = { fg = "pine" },
         ["@constant.builtin"] = { fg = "pine" },
+        Tag = { fg = "subtle" },
         ["@tag"] = { fg = "subtle" },
         ["@tag.attribute"] = { fg = "foam" },
 
