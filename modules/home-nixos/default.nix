@@ -12,7 +12,6 @@
     _1password-gui
     discord
     google-chrome
-    brave
     newsflash
     obsidian
     slack

@@ -42,7 +42,10 @@ lsp.tsserver.setup({
     root_dir = lsp.util.root_pattern({ "package.json" }),
 })
 
-lsp.astro.setup({})
+lsp.astro.setup({
+    on_attach = on_attach,
+    capabilities = updated_capabilities,
+})
 
 lsp.html.setup({
     on_attach = on_attach,
@@ -294,15 +297,16 @@ end
 
 conform.setup({
     formatters_by_ft = {
+        css = { "prettier" },
         astro = { {
-            "biome",
             "prettier",
+            "biome",
         } },
         dune = { "ocamllsp" },
         go = { "gofmt" },
         javascript = { {
-            "biome",
             "prettier",
+            "biome",
         } },
         lua = { "stylua" },
         nix = { "nixpkgs_fmt" },
@@ -310,8 +314,8 @@ conform.setup({
         rust = { "rustfmt" },
         templ = { "templ" },
         typescript = { {
-            "biome",
             "prettier",
+            "biome",
         } },
         yaml = { "yamlfmt" },
     },

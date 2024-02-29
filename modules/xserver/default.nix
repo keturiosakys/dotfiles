@@ -55,11 +55,6 @@
     desktopManager = {
       xterm.enable = false;
       wallpaper.mode = "fill";
-      # xfce = {
-      #   enable = true;
-      #   noDesktop = true;
-      #   enableXfwm = false;
-      # };
     };
 
     windowManager.i3 = {

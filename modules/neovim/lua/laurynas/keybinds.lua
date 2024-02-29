@@ -241,6 +241,14 @@ local keymaps = {
             ":vsplit | lua require('telescope.builtin').lsp_definitions()<CR> | zz",
             desc = "Show definition in a vertical split",
         },
+        ["gt"] = {
+            function() vim.lsp.buf.type_definition() end,
+            desc = "Find all references of the current symbol",
+        },
+        ["<leader>gt"] = {
+            ":vsplit | lua function() vim.lsp.buf.type_definition() vim.cmd('normal! zz') end <CR> | zz",
+            desc = "Show definition in a vertical split",
+        },
         ["gr"] = {
             "<cmd>Telescope lsp_references<CR>",
             desc = "Find all references of the current symbol",

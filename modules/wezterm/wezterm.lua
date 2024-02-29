@@ -67,7 +67,6 @@ return {
   animation_fps = 1,
   freetype_load_flags = "NO_HINTING",
   launch_menu = launch_menu,
-	enable_wayland = false,
   cursor_blink_ease_in = "Constant",
   cursor_blink_ease_out = "Constant",
   status_update_interval = 500,

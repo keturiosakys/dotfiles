@@ -67,6 +67,8 @@
 
   environment.systemPackages = with pkgs; [
     feh
+    steam-run-native
+    vial
     xclip
     xorg.xev
   ];
