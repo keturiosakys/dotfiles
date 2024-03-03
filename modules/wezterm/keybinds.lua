@@ -46,7 +46,6 @@ local keys = {
 	{ key = "t", mods = "LEADER", action = act.ShowTabNavigator },
 	{ key = "y", mods = "LEADER", action = act.ActivateCopyMode },
 	{ key = "f", mods = "LEADER", action = wezterm.action_callback(sessionizer.toggle), },
-	-- { key = "F", mods = "LEADER", action = wezterm.action_callback(sessionizer.reset_cache_and_toggle), },
 	{
 		key = "R",
 		mods = "CMD|SHIFT",

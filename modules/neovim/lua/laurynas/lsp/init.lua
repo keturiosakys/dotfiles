@@ -1,5 +1,4 @@
 local lsp = require("lspconfig")
-local null_ls = require("null-ls")
 local conform = require("conform")
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -66,7 +65,6 @@ lsp.cssls.setup({
         "css",
         "scss",
         "less",
-        "astro",
         "templ",
     },
     settings = {
@@ -135,7 +133,7 @@ lsp.gopls.setup({
     },
 })
 
-lsp.elixirls.setup({
+--[[ lsp.elixirls.setup({
     on_attach = on_attach,
     capabilities = updated_capabilities,
     cmd = { "elixir-ls" },
@@ -145,7 +143,7 @@ lsp.elixirls.setup({
             fetchDeps = false,
         },
     },
-})
+}) ]]
 
 lsp.lexical.setup({
     cmd = { "/etc/profiles/per-user/laurynask/bin/lexical" },
@@ -199,15 +197,8 @@ lsp.lua_ls.setup({
     on_attach = on_attach,
     settings = {
         Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using
-                -- (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
+            runtime = {},
+            telemetry = { enable = false },
         },
     },
 })
@@ -259,42 +250,7 @@ rust_tools.setup({
     },
 })
 
--- LINTERS
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
-
-null_ls.setup({
-    border = "rounded",
-    sources = {
-        -- diagnostics
-        diagnostics.eslint_d.with({
-            condition = function(utils) return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" }) end,
-        }),
-
-        -- code actions
-        code_actions.eslint_d.with({
-            condition = function(utils) return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" }) end,
-        }),
-    },
-})
-
 -- FORMATTERS
-local function hasPrettierConfig()
-    if
-        vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.json") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.yaml") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.yml") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.js") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.mjs") == 1
-        or vim.fn.filereadable(vim.fn.getcwd() .. "/.prettierrc.cjs") == 1
-    then
-        return true
-    else
-        return false
-    end
-end
-
 conform.setup({
     formatters_by_ft = {
         css = { "prettier" },

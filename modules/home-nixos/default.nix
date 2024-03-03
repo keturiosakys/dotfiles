@@ -16,8 +16,10 @@
     obsidian
     slack
     signal-desktop
+    sublime4
 
     dnsutils
+    file
     gnutar
     iputils
     unzip

@@ -1,16 +1,17 @@
 { pkgs ? import <nixpkgs> { }, installShellFiles, ... }:
 let
   name = "fp";
-  version = "2.19.0";
-  x86_64-linux = "https://fp.dev/fp/v${version}/x86_64-unknown-linux-gnu/fp";
+  version = "2.21.0";
   # aarch64-linux = "https://fp.dev/fp/v${version}/aarch64-unknown-linux-gnu/fp";
   # x86_64-apple-darwin = "https://fp.dev/fp/v${version}/x86_64-apple-darwin/fp";
+  x86_64-linux = "https://fp.dev/fp/v${version}/x86_64-unknown-linux-gnu/fp";
   aarch64-apple-darwin = "https://fp.dev/fp/v${version}/aarch64-apple-darwin/fp";
+  url = if pkgs.stdenv.isDarwin then aarch64-apple-darwin else x86_64-linux;
 in
 pkgs.stdenv.mkDerivation {
   inherit name version;
   src = pkgs.fetchurl {
-    url = if pkgs.stdenv.isDarwin then aarch64-apple-darwin else x86_64-linux;
+    inherit url;
     sha256 = "sha256-Af8pur5BthryJTB8vRZgbkGLgCqpC2mpeYEiTPwItZo=";
   };
 
@@ -36,4 +37,5 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/fiberplane/fp";
   };
 }
+
 

@@ -12,6 +12,7 @@
       nixpkgs-fmt
       rust-analyzer
       stylua
+      tflint
       yamlfmt
     ];
   };
@@ -118,7 +119,6 @@
         nil
         tailwindcss-language-server
         terraform-ls
-        tflint
         nodePackages_latest.typescript-language-server
         vscode-langservers-extracted
         yaml-language-server
@@ -167,7 +167,6 @@
         lspkind-nvim
         conform-nvim
         rust-tools-nvim
-        none-ls-nvim
         nvim-lspconfig
 
         copilot-cmp
