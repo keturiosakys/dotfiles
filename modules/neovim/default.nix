@@ -13,6 +13,7 @@
       rust-analyzer
       stylua
       tflint
+      tflint-plugins.tflint-ruleset-aws
       yamlfmt
     ];
   };
@@ -206,6 +207,7 @@
             fish
             git_config
             git_rebase
+            gleam
             go
             gomod
             gosum

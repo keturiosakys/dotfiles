@@ -50,11 +50,11 @@ local keymaps = {
         -- ["<F4>"] = { "<cmd>tabn 4<CR>" },
         -- ["<F5>"] = { "<cmd>tabn 5<CR>" },
 
-        ["<F1>"] = { function() require("harpoon"):list():select(1) end, desc = "Harpoon 1" },
-        ["<F2>"] = { function() require("harpoon"):list():select(2) end, desc = "Harpoon 2" },
-        ["<F3>"] = { function() require("harpoon"):list():select(3) end, desc = "Harpoon 3" },
-        ["<F4>"] = { function() require("harpoon"):list():select(4) end, desc = "Harpoon 4" },
-        ["<F5>"] = { function() require("harpoon"):list():select(5) end, desc = "Harpoon 5" },
+        ["<F1>"] = { function() harpoon:list():select(1) end, desc = "Harpoon 1" },
+        ["<F2>"] = { function() harpoon:list():select(2) end, desc = "Harpoon 2" },
+        ["<F3>"] = { function() harpoon:list():select(3) end, desc = "Harpoon 3" },
+        ["<F4>"] = { function() harpoon:list():select(4) end, desc = "Harpoon 4" },
+        ["<F5>"] = { function() harpoon:list():select(5) end, desc = "Harpoon 5" },
 
         ["<C-h>"] = { "<cmd>NavigatorLeft<CR>", desc = "Move to left split" },
         ["<C-j>"] = { "<cmd>NavigatorDown<CR>", desc = "Move to below split" },

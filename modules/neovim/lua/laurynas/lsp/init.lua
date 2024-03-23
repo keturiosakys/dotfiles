@@ -146,7 +146,7 @@ lsp.gopls.setup({
 }) ]]
 
 lsp.lexical.setup({
-    cmd = { "/etc/profiles/per-user/laurynask/bin/lexical" },
+    cmd = { "lexical" },
     root_dir = function(fname) return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir() end,
     settings = {
         elixirLS = {
@@ -202,6 +202,8 @@ lsp.lua_ls.setup({
         },
     },
 })
+
+lsp.gleam.setup({})
 
 lsp.ocamllsp.setup({
     on_attach = function(_, _)
