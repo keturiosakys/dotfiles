@@ -3,6 +3,7 @@
     enable = true;
 
     onActivation = {
+      upgrade = true;
       cleanup = "zap";
     };
 
@@ -39,6 +40,7 @@
       "skim"
       "slack"
       "sloth"
+      "stats"
       "visual-studio-code"
       "wezterm-nightly"
       "zed"
