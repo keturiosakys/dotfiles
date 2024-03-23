@@ -45,13 +45,14 @@ in
       zoxide
       zsh
       zsh-completions
-      zsh-fzf-tab
+      # zsh-fzf-tab
 
       # Compilers and runtimes
       bun
       deno
       elixir_1_16
       erlang
+      gleam
       emscripten
       go
       gcc
