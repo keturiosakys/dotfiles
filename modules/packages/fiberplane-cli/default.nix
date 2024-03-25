@@ -1,28 +1,31 @@
-{ pkgs ? import <nixpkgs> { }, installShellFiles, ... }:
+{ pkgs, fetchFromGitHub, rustPlatform, installShellFiles, ... }:
 let
   name = "fp";
-  version = "2.21.0";
-  x86_64-linux = "https://fp.dev/fp/v${version}/x86_64-unknown-linux-gnu/fp";
-  # aarch64-linux = "https://fp.dev/fp/v${version}/aarch64-unknown-linux-gnu/fp";
-  # x86_64-apple-darwin = "https://fp.dev/fp/v${version}/x86_64-apple-darwin/fp";
-  aarch64-apple-darwin = "https://fp.dev/fp/v${version}/aarch64-apple-darwin/fp";
-  url = if pkgs.stdenv.isDarwin then aarch64-apple-darwin else x86_64-linux;
+  version = "2.22.0-beta.1";
 in
-pkgs.stdenv.mkDerivation {
-  inherit name version;
-  src = pkgs.fetchurl {
-    url = if pkgs.stdenv.isDarwin then aarch64-apple-darwin else x86_64-linux;
-    sha256 = "sha256-RLxEGWms8gtjvv9mKRaUZRpDEJYRMdxzqmU9cgcwQ5g=";
+rustPlatform.buildRustPackage rec {
+  pname = name;
+  inherit version;
+  src = fetchFromGitHub {
+    owner = "fiberplane";
+    repo = name;
+    rev = "v${version}";
+    hash = "sha256-CM6NIWKFupBsbZzu1C/cmorzBtBO60v9PmVWwqWiQ7s=";
   };
 
-  phases = "installPhase postInstall";
+  # cargoLock = {
+  #   lockFile = ./Cargo.lock;
+  # };
+
+  cargoLock = {
+    lockFileContents = builtins.readFile ./Cargo.lock;
+  };
 
   nativeBuildInputs = [ installShellFiles ];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp $src $out/bin/fp
-    chmod +x $out/bin/fp
+  postPatch = ''
+    rm Cargo.lock
+    ln -s ${./Cargo.lock} Cargo.lock
   '';
 
   postInstall = ''

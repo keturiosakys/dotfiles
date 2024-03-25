@@ -5,6 +5,8 @@ require("laurynas.options")
 require("laurynas.colorscheme")
 require("laurynas.dressing")
 require("laurynas.gitsigns")
+require("laurynas.fugitive")
+
 require("laurynas.filetypes")
 require("laurynas.harpoon")
 require("laurynas.mini")

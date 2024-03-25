@@ -6,7 +6,7 @@ in
 {
   home = {
     packages = [
-      fiberplane-cli
+      # fiberplane-cli
       dotfiles
 
     ] ++ (with pkgs; [

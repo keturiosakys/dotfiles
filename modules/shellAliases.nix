@@ -14,6 +14,7 @@
   "marked" = "open -a Marked 2";
   "markedit" = "open -a MarkEdit";
   "o" = "open";
+  "s" = "subl";
   "tree" = "erd -y inverted";
   "vim" = "nvim";
   "yless" = "jless --yaml";

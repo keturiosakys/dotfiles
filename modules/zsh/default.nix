@@ -8,7 +8,9 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      enableAutosuggestions = true;
+      autosuggestion = {
+        enable = true;
+      };
       autocd = true;
       dotDir = ".config/zsh";
       shellAliases = import ../shellAliases.nix; # TODO: this might need to be import ./modules/shellAliases.nix
