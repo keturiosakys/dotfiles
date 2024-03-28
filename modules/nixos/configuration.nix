@@ -25,6 +25,7 @@
       allowUnfree = true;
       permittedInsecurePackages = [
         "electron-25.9.0"
+        "openssl-1.1.1w"
       ];
     };
 
@@ -50,7 +51,7 @@
     hostName = "gimli-son-of-gloin";
     networkmanager = {
       enable = true;
-      insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
+      # insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
       unmanaged = [ "interface-name:wlp3s0" ];
     };
     firewall = {
@@ -140,4 +141,14 @@
   };
 
   system.stateVersion = "23.11";
+
+  virtualisation = {
+    docker = {
+      enable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
+  };
 }
