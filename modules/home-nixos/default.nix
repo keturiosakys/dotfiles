@@ -29,6 +29,8 @@
 
     glibc
 
+    kind
+
     libnotify
     inotify-tools
     lm_sensors
