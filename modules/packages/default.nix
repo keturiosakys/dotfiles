@@ -72,7 +72,7 @@ in
       # Container and cloud tools
       _1password
       act
-      awscli2
+      # awscli2
       docker
       docker-compose
       github-cli
